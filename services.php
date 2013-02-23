@@ -1,5 +1,5 @@
 <?php
-    
+
     if( isset( $_GET[ 'callback' ] ) ) :
         $callback = $_GET[ 'callback' ];
     else :
