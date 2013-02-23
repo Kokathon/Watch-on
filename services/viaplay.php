@@ -34,7 +34,7 @@
             return $this->shows;
         }
 
-        public function searchMovie( $param, $type = 'movies' ){
+        public function search( $param, $type = 'movies' ){
             $m = new MongoClient();
 
             // select a database
