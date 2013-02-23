@@ -33,5 +33,29 @@
         public function getShows() {
             return $this->shows;
         }
+
+        public function searchMovie( $param ){
+            $m = new MongoClient();
+
+            // select a database
+            $db = $m->watchon;
+
+            // select a collection (analogous to a relational database's table)
+            $collection = $db->movies;
+
+            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $movies = $collection->find( array( 'title' => $condition, 'service' => 'viaplay' ) );
+
+            $results = array();
+
+            foreach( $movies as $movie ) :
+                $results[] = array(
+                    'title' => $movie[ 'title' ],
+                    'service' => $movie[ 'service' ]
+                );
+            endforeach;
+
+            return $results;
+        }
     }
 ?>
