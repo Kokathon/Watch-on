@@ -27,7 +27,7 @@
 
             $lovefilm_results = array_merge( $movies, $tv );
 
-            $results[ 'lovefilm' ] = $lovefilm_results;
+            $results = $lovefilm_results;
             break;
         case 'hbo':
             // Hbo search
@@ -39,7 +39,7 @@
 
             $hbo_results = array_merge( $movies, $tv );
 
-            $results[ 'hbo' ] = $hbo_results;
+            $results = $hbo_results;
             break;
         case 'voddler':
             // Voddler search
@@ -47,7 +47,7 @@
             $voddler = new Voddler();
             $movies = $voddler->findMovies($param);
 
-            $results['voddler'] = $movies;
+            $results = $movies;
             break;
         default:
             // Viaplay search
@@ -59,7 +59,7 @@
 
             $viaplay_results = array_merge( $movies, $tv );
 
-            $results[ 'viaplay' ] = $viaplay_results;
+            $results = $viaplay_results;
             break;
     endswitch;
 
