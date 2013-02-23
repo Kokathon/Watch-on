@@ -1,7 +1,9 @@
 <?php
     include( 'services/viaplay.php' );
     $viaplay = new Viaplay();
+    $viaplay->index();
 
+    /*
     $viaplay->findAllMovies();
     $movies = $viaplay->getMovies();
     // connect
@@ -22,3 +24,4 @@
             $collection->insert( $document );
         endif;
     endforeach;
+    */

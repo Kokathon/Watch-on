@@ -57,5 +57,27 @@
 
             return $results;
         }
+
+        public function index(){
+            $this->findAllMovies();
+            // connect
+            $m = new MongoClient();
+
+            // select a database
+            $db = $m->watchon;
+
+            // select a collection (analogous to a relational database's table)
+            $collection = $db->movies;
+            // add a record
+            foreach ( $this->movies as $movie ) :
+                $document = array(
+                    "title" => $movie,
+                    "service" => "viaplay"
+                );
+                if ( !$collection->findOne( $document ) ) :
+                    $collection->insert( $document );
+                endif;
+            endforeach;
+        }
     }
 ?>
