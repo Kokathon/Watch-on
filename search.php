@@ -1,4 +1,7 @@
 <?php
+    $param = '';
+    $callback = '';
+
     if( isset( $_GET[ 'term' ] ) ){
         $param = $_GET[ 'term' ];
     }
