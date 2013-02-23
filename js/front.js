@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
   var searchTimeout;
-  var span = 12;
+  var span = ["span12", "span6", "span4", "span3", "span2", "span1"];
+  var currentSpan = 0;
 
   var services = {};
 
@@ -29,16 +30,17 @@ $(document).ready(function() {
 
     $.each(objects, function(index, element){
       services[serviceName].results.push(element);
-      // html += "<tr><td>" + element.title + "</td></tr>";
     });
 
     populateTable(services[serviceName].results, services[serviceName].name);
   }
 
   function populateTable(objects, serviceName) {
-    $(".span" + span * 2).removeClass("span" + span * 2).addClass("span" + span);
+    if (currentSpan > 0) {
+      $("." + span[currentSpan - 1]).removeClass(span[currentSpan - 1]).addClass(span[currentSpan]); 
+    }
     $(".service-" + serviceName).remove();
-    var html = "<div class='span" + span + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter(serviceName) + "</th></tr>";
+    var html = "<div class='" + span[currentSpan] + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter(serviceName) + "</th></tr>";
 
     $.each(objects, function(index, element){
       html += "<tr><td>" + element.title + "</td></tr>";
@@ -47,16 +49,18 @@ $(document).ready(function() {
     html += "</table></div>";
 
     $(".js-results").append(html);
-    span = span / 2;
+    currentSpan += 1;
   }
 
   $("body").on("keyup", "input", function(e) {
 
-    var term = $.trim($(".js-search-input").val());
+    var term = encodeURI($.trim($(".js-search-input").val()));
 
     clearTimeout(searchTimeout);
 
     searchTimeout = setTimeout(function(){
+
+        currentSpan = 0;
 
         //Search using search.php
         $.ajax({
@@ -66,18 +70,16 @@ $(document).ready(function() {
             featureClass: "P",
             style: "full",
             maxRows: 12,
-            term: $.trim($(".js-search-input").val())
+            term: term
           },
           success: function( data ) {
             var service;
 
             for (service in data) {
-              if (data.hasOwnProperty(data)) {
+              // if (data.hasOwnProperty(service)) {
                 populateArray(data[service], service);
-              }
+              // }
             }
-            /*populateArray(data.viaplay, "viaplay");
-            populateArray(data.hbo, "hbo");*/
           }
         });
 
