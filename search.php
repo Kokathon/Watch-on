@@ -43,6 +43,13 @@
 
     $results[ 'hbo' ] = $hbo_results;
 
+    // Voddler search
+    include('services/voddler.php');
+    $voddler = new Voddler();
+    $movies = $voddler->findMovies($param);
+
+    $results['voddler'] = $movies;
+
     //$results = array_merge( $viaplay_results, $hbo_results );
 
     header( 'Content-type: application/json' );
