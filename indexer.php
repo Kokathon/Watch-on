@@ -3,6 +3,10 @@
     $viaplay = new Viaplay();
     $viaplay->index();
 
+    include( 'services/hbo.php' );
+    $hbo = new Hbo();
+    $hbo->index();
+
     /*
     $viaplay->findAllMovies();
     $movies = $viaplay->getMovies();
