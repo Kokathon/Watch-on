@@ -16,15 +16,19 @@ $(document).ready(function() {
             term: request.term
           },
           success: function( data ) {
-            console.log(data);
-            response( $.map( data.geonames, function( item ) {
+            response( $.map( data, function( item ) {
               return {
-                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-                value: item.name
+                label: item.title + " (" + item.service + ")" + ", " + item.type,
+                value: item.title
               }
             }));
           }
         });
+
+        // n = new NetFlix();
+
+        // console.log(n.findMovies(request.term));
+
       },
       minLength: 2,
       select: function( event, ui ) {
