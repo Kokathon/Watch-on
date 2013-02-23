@@ -12,9 +12,7 @@
 
             $movies = array();
             foreach( $moviesResult->entry as $movie ) :
-                $movies[] = array(
-                    'title' => $movie->title
-                );
+                $movies[] = $movie->title;
             endforeach;
 
             $this->movies = $movies;
