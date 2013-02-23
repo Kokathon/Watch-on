@@ -19,17 +19,17 @@ $(document).ready(function() {
       services[serviceName] = {
         name:serviceName,
         results:[]
-      }      
+      }
     }
 
     //First empty corresponding array
     services[serviceName].results = [];
 
     console.log(services[serviceName]);
-    
+
     $.each(objects, function(index, element){
       services[serviceName].results.push(element);
-      // html += "<tr><td>" + element.title + "</td></tr>"; 
+      // html += "<tr><td>" + element.title + "</td></tr>";
     });
 
     populateTable(services[serviceName].results, services[serviceName].name);
@@ -41,7 +41,7 @@ $(document).ready(function() {
     var html = "<div class='span" + span + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter(serviceName) + "</th></tr>";
 
     $.each(objects, function(index, element){
-      html += "<tr><td>" + element.title + "</td></tr>"; 
+      html += "<tr><td>" + element.title + "</td></tr>";
     });
 
     html += "</table></div>";
@@ -57,7 +57,7 @@ $(document).ready(function() {
     clearTimeout(searchTimeout);
 
     searchTimeout = setTimeout(function(){
-        
+
         //Search using search.php
         $.ajax({
           url: "http://kokarn.com/kokathon/repos/Watch-on/search.php",
@@ -69,8 +69,15 @@ $(document).ready(function() {
             term: $.trim($(".js-search-input").val())
           },
           success: function( data ) {
-            populateArray(data.viaplay, "viaplay");
-            populateArray(data.hbo, "hbo");
+            var service;
+
+            for (service in data) {
+              if (data.hasOwnProperty(data)) {
+                populateArray(data[service], service);
+              }
+            }
+            /*populateArray(data.viaplay, "viaplay");
+            populateArray(data.hbo, "hbo");*/
           }
         });
 
@@ -93,6 +100,6 @@ $(document).ready(function() {
       $( "<div>" ).text( message ).prependTo( "#log" );
       $( "#log" ).scrollTop( 0 );
     }
- 
+
 
 });
