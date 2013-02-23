@@ -1,6 +1,8 @@
 <?php
     $param = $_GET[ 'term' ];
-    $callback = $_GET[ 'callback' ];
+    if( isset( $_GET[ 'callback' ] ) ){
+        $callback = $_GET[ 'callback' ];
+    }
     /*
     // Lovefilm search
     include ('services/lovefilm.php' );
