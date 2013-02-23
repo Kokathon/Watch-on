@@ -1,23 +1,42 @@
 $(document).ready(function() {
-  $( ".js-search-input" ).autocomplete({
-    minLength: 2,
-    source: "search.php",
-    focus: function( event, ui ) {
-      $( "#project" ).val( ui.item.label );
-      return false;
-    },
-    select: function( event, ui ) {
-      $( "#project" ).val( ui.item.label );
-      $( "#project-id" ).val( ui.item.value );
-      $( "#project-description" ).html( ui.item.desc );
-      $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
-
-      return false;
+  function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
     }
-  })
-  .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-    return $( "<li>" )
-      .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
-      .appendTo( ul );
-  };
+ 
+    $( ".js-search-input" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: "http://kokarn.com/kokathon/repos/Watch-on/search.php",
+          dataType: "jsonp",
+          data: {
+            featureClass: "P",
+            style: "full",
+            maxRows: 12,
+            term: request.term
+          },
+          success: function( data ) {
+            console.log(data);
+            response( $.map( data.geonames, function( item ) {
+              return {
+                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                value: item.name
+              }
+            }));
+          }
+        });
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+        log( ui.item ?
+          "Selected: " + ui.item.label :
+          "Nothing selected, input was " + this.value);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
 });
