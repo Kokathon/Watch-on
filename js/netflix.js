@@ -11,17 +11,19 @@ NetFlix.prototype = {
 		url = NetFlix._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + titel + '\',Name) and Type eq \'Movie\'&' +
 			'$callback=callback&' + 
-			'$select=Name&' +
+			//'$select=Name&' +
 			'$format=json';
 
 		var success = function (data) {
+
+			console.log(data);
 
 			var movies = [];
 
 			$.each(data.d.results, function(index, movie) {
 				movies.push({
 					service: 'netflix',
-					name: movie.Name,
+					title: movie.Name,
 					type: 'movie'
 				});
 			});
@@ -52,7 +54,7 @@ NetFlix.prototype = {
 			$.each(data.d.results, function(index, serie) {
 				series.push({
 					service: 'netflix',
-					name: serie.Name,
+					title: serie.Name,
 					type: 'tv'
 				});
 			});
