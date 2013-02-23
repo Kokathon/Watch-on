@@ -1,11 +1,64 @@
 $(document).ready(function() {
-  function log( message ) {
-      $( "<div>" ).text( message ).prependTo( "#log" );
-      $( "#log" ).scrollTop( 0 );
+
+  var searchTimeout;
+  var span = 12;
+
+  var services = {};
+
+  function populateArray(objects, service) {
+    var serviceName;
+
+    if (service !== undefined) {
+      serviceName = service;
+    } else {
+      serviceName = objects[0];
     }
- 
-    $( ".js-search-input" ).autocomplete({
-      source: function( request, response ) {
+
+    //Only create if does not exist
+    if (services[serviceName] == undefined) {
+      services[serviceName] = {
+        name:serviceName,
+        results:[]
+      }      
+    }
+
+    //First empty corresponding array
+    services[serviceName].results = [];
+
+    console.log(services[serviceName]);
+    
+    $.each(objects, function(index, element){
+      services[serviceName].results.push(element);
+      // html += "<tr><td>" + element.title + "</td></tr>"; 
+    });
+
+    populateTable(services[serviceName].results, services[serviceName].name);
+  }
+
+  function populateTable(objects, serviceName) {
+    $(".span" + span * 2).removeClass("span" + span * 2).addClass("span" + span);
+    $(".service-" + serviceName).remove();
+    var html = "<div class='span" + span + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter(serviceName) + "</th></tr>";
+
+    $.each(objects, function(index, element){
+      html += "<tr><td>" + element.title + "</td></tr>"; 
+    });
+
+    html += "</table></div>";
+
+    $(".js-results").append(html);
+    span = span / 2;
+  }
+
+  $("body").on("keyup", "input", function(e) {
+
+    var term = $.trim($(".js-search-input").val());
+
+    clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(function(){
+        
+        //Search using search.php
         $.ajax({
           url: "http://kokarn.com/kokathon/repos/Watch-on/search.php",
           dataType: "jsonp",
@@ -13,34 +66,33 @@ $(document).ready(function() {
             featureClass: "P",
             style: "full",
             maxRows: 12,
-            term: request.term
+            term: $.trim($(".js-search-input").val())
           },
           success: function( data ) {
-            response( $.map( data, function( item ) {
-              return {
-                label: item.title + " (" + item.service + ")" + ", " + item.type,
-                value: item.title
-              }
-            }));
+            populateArray(data.viaplay, "viaplay");
+            populateArray(data.hbo, "hbo");
           }
         });
 
-        // n = new NetFlix();
+        //Search using js/netflix.js
+        n = new NetFlix();
+        // populateArray()
+        n.findMovies(term, function(data) {
+          populateArray(data, 'netflix')
+        });
 
-        // console.log(n.findMovies(request.term));
+    },200);
+  });
 
-      },
-      minLength: 2,
-      select: function( event, ui ) {
-        log( ui.item ?
-          "Selected: " + ui.item.label :
-          "Nothing selected, input was " + this.value);
-      },
-      open: function() {
-        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-      },
-      close: function() {
-        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-      }
-    });
+  function capitaliseFirstLetter(string)
+  {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+    }
+ 
+
 });
