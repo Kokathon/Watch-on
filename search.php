@@ -1,6 +1,7 @@
 <?php
     $param = '';
     $callback = '';
+    $results = array();
 
     if( isset( $_GET[ 'term' ] ) ){
         $param = $_GET[ 'term' ];
@@ -25,6 +26,8 @@
 
     $viaplay_results = array_merge( $movies, $tv );
 
+    $results['viaplay'] = $viaplay_results;
+
     // Hbo search
     include( 'services/hbo.php' );
     $hbo = new Hbo();
@@ -34,7 +37,9 @@
 
     $hbo_results = array_merge( $movies, $tv );
 
-    $results = array_merge( $viaplay_results, $hbo_results );
+    $results['hbo'] = $hbo_results;
+
+    //$results = array_merge( $viaplay_results, $hbo_results );
 
     header( 'Content-type: application/json' );
     echo $callback . "(";
