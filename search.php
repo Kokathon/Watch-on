@@ -1,8 +1,19 @@
 <?php
-    include( 'services/viaplay.php' );
     $param = $_GET[ 'search' ];
+    /*
+    // Lovefilm search
+    include ('services/lovefilm.php' );
+    $lovefilm = new Lovefilm();
+    $lovefilm->searchMovie( $param );
+    */
+
+    // Viaplay search
+    include( 'services/viaplay.php' );
     $viaplay = new Viaplay();
 
-    $movies = $viaplay->searchMovie( $param );
+    $movies = $viaplay->search( $param, 'movie' );
+    $tv = $viaplay->search( $param, 'tv' );
 
-    echo json_encode( $movies );
+    $results = array_merge( $movies, $tv );
+
+    echo json_encode( $results );
