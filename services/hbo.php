@@ -11,9 +11,9 @@
             $moviesResult = json_decode( $data );
 
             $movies = array();
-            foreach( $moviesResult as $movie ) :
-                $movies = array(
-                    'title' => $movie['title'],
+            foreach( $moviesResult->entry as $movie ) :
+                $movies[] = array(
+                    'title' => $movie->title,
                     'service' => 'hbo'
                 );
             endforeach;
@@ -27,7 +27,7 @@
 
             $shows = array();
             foreach( $showsResult as $show ) :
-                $shows = array(
+                $shows[] = array(
                     'title' => $show->title,
                     'service' => 'hbo'
                 );
