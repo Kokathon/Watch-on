@@ -1,5 +1,5 @@
 <?php
-    if( isset( $_GET[ 'callback' ] ) ){
+    if( isset( $_GET[ 'term' ] ) ){
         $param = $_GET[ 'term' ];
     }
 
