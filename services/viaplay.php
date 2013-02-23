@@ -34,7 +34,7 @@
             return $this->shows;
         }
 
-        public function search( $param, $type = 'movies' ){
+        public function search( $param, $type = 'movie' ){
             $m = new MongoClient();
 
             // select a database
@@ -44,14 +44,15 @@
             $collection = $db->$type;
 
             $condition = new MongoRegex( '/.*' . $param . '.*/i' );
-            $movies = $collection->find( array( 'title' => $condition, 'service' => 'viaplay' ) );
+            $findResults = $collection->find( array( 'title' => $condition, 'service' => 'viaplay' ) );
 
             $results = array();
 
-            foreach( $movies as $movie ) :
+            foreach( $findResults as $result ) :
                 $results[] = array(
-                    'title' => $movie[ 'title' ],
-                    'service' => $movie[ 'service' ]
+                    'title' => $result[ 'title' ],
+                    'service' => $result[ 'service' ],
+                    'type' => $type
                 );
             endforeach;
 
@@ -67,7 +68,7 @@
             $db = $m->watchon;
 
             // select a collection (analogous to a relational database's table)
-            $collection = $db->movies;
+            $collection = $db->movie;
             // add a record
             foreach ( $this->movies as $movie ) :
                 $document = array(
