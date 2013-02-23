@@ -4,7 +4,7 @@
     $results = array();
 
     if ( isset( $_GET[ 'term' ] ) ) {
-        $param = $_GET[ 'term' ];
+        $param = urldecode( $_GET[ 'term' ] );
     }
 
     if ( isset( $_GET[ 'callback' ] ) ) {
