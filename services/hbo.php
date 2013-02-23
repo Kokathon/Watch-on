@@ -24,9 +24,7 @@
 
             $shows = array();
             foreach( $showsResult as $show ) :
-                $shows[] = array(
-                    'title' => $show->title
-                );
+                $shows[] = $show->title;
             endforeach;
 
             $this->shows = $shows;
