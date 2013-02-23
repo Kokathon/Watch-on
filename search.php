@@ -17,4 +17,6 @@
     $results = array_merge( $movies, $tv );
 
     header( 'Content-type: application/json' );
+    echo "callback(";
     echo json_encode( $results );
+    echo ");";
