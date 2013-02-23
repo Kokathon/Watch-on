@@ -11,46 +11,57 @@
         $callback = $_GET[ 'callback' ];
     }
 
-    // Lovefilm search
-    include ( 'services/lovefilm.php' );
-    $lovefilm = new Lovefilm();
-    $movies = $lovefilm->searchMovie( $param );
-    $tv = $lovefilm->searchTv( $param );
+    if( isset( $_GET[ 'service' ] ) ) :
+        $service = $_GET[ 'service' ];
+    else :
+        $service = 'viaplay';
+    endif;
 
-    $lovefilm_results = array_merge( $movies, $tv );
+    switch( $service ) :
+        case 'lovefilm':
+            // Lovefilm search
+            include ( 'services/lovefilm.php' );
+            $lovefilm = new Lovefilm();
+            $movies = $lovefilm->searchMovie( $param );
+            $tv = $lovefilm->searchTv( $param );
 
-    $results[ 'lovefilm' ] = $lovefilm_results;
+            $lovefilm_results = array_merge( $movies, $tv );
 
-    // Viaplay search
-    include( 'services/viaplay.php' );
-    $viaplay = new Viaplay();
+            $results[ 'lovefilm' ] = $lovefilm_results;
+            break;
+        case 'hbo':
+            // Hbo search
+            include( 'services/hbo.php' );
+            $hbo = new Hbo();
 
-    $movies = $viaplay->search( $param, 'movie' );
-    $tv = $viaplay->search( $param, 'tv' );
+            $movies = $hbo->search( $param, 'movie' );
+            $tv = $hbo->search( $param, 'tv' );
 
-    $viaplay_results = array_merge( $movies, $tv );
+            $hbo_results = array_merge( $movies, $tv );
 
-    $results[ 'viaplay' ] = $viaplay_results;
+            $results[ 'hbo' ] = $hbo_results;
+            break;
+        case 'voddler':
+            // Voddler search
+            include('services/voddler.php');
+            $voddler = new Voddler();
+            $movies = $voddler->findMovies($param);
 
-    // Hbo search
-    include( 'services/hbo.php' );
-    $hbo = new Hbo();
+            $results['voddler'] = $movies;
+            break;
+        default:
+            // Viaplay search
+            include( 'services/viaplay.php' );
+            $viaplay = new Viaplay();
 
-    $movies = $hbo->search( $param, 'movie' );
-    $tv = $hbo->search( $param, 'tv' );
+            $movies = $viaplay->search( $param, 'movie' );
+            $tv = $viaplay->search( $param, 'tv' );
 
-    $hbo_results = array_merge( $movies, $tv );
+            $viaplay_results = array_merge( $movies, $tv );
 
-    $results[ 'hbo' ] = $hbo_results;
-
-    // Voddler search
-    include('services/voddler.php');
-    $voddler = new Voddler();
-    $movies = $voddler->findMovies($param);
-
-    $results['voddler'] = $movies;
-
-    //$results = array_merge( $viaplay_results, $hbo_results );
+            $results[ 'viaplay' ] = $viaplay_results;
+            break;
+    endswitch;
 
     header( 'Content-type: application/json' );
     echo $callback . "(";
