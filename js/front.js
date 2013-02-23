@@ -5,34 +5,39 @@ $(document).ready(function() {
   var currentSpan = 0;
 
   var services = {};
+  //Search using search.php
+  $.ajax({
+    url: "services.php",
+    dataType: "jsonp",
+    success: function( data ) {
+      for (var i = 0; i < data.length; i++) {
+        services[data[i]] = {
+          id: data[i],
+          name: capitaliseFirstLetter(data[i]),
+          results: []
+        }
+      };      
+    }
+  });
+
+  //Add netflix manually
+  services['netflix'] = {
+    id: "netflix",
+    name: "Netflix",
+    results: []
+  }
+
 
   function populateArray(objects, service) {
-    var serviceName;
-
-    if (service !== undefined) {
-      serviceName = service;
-    } else {
-      serviceName = objects[0];
-    }
-
-    //Only create if does not exist
-    if (services[serviceName] == undefined) {
-      services[serviceName] = {
-        name:serviceName,
-        results:[]
-      }
-    }
 
     //First empty corresponding array
-    services[serviceName].results = [];
-
-    console.log(services[serviceName]);
+    services[service].results = [];
 
     $.each(objects, function(index, element){
-      services[serviceName].results.push(element);
+      services[service].results.push(element);
     });
 
-    populateTable(services[serviceName].results, services[serviceName].name);
+    populateTable(services[service].results, services[service].name);
   }
 
   function populateTable(objects, serviceName) {
@@ -45,6 +50,10 @@ $(document).ready(function() {
     $.each(objects, function(index, element){
       html += "<tr><td>" + element.title + "</td></tr>";
     });
+
+    if (objects.length == 0) {
+      html += "<tr class='warning'><td>No results!</td></tr>";
+    };
 
     html += "</table></div>";
 
@@ -62,26 +71,30 @@ $(document).ready(function() {
 
         currentSpan = 0;
 
-        //Search using search.php
-        $.ajax({
-          url: "http://kokarn.com/kokathon/repos/Watch-on/search.php",
-          dataType: "jsonp",
-          data: {
-            featureClass: "P",
-            style: "full",
-            maxRows: 12,
-            term: term
-          },
-          success: function( data ) {
-            var service;
-
-            for (service in data) {
-              // if (data.hasOwnProperty(service)) {
-                populateArray(data[service], service);
-              // }
+        $.each(services, function (service) {
+          //Search using search.php
+          $.ajax({
+            url: "http://kokarn.com/kokathon/repos/Watch-on/search.php",
+            dataType: "jsonp",
+            data: {
+              service: service,
+              term: term
+            },
+            success: function( data ) {
+              console.log(service);
+              console.log(data);
+              if (data.length > 0) {
+                populateArray(data, service);                
+              }
             }
-          }
+          });
         });
+        for (service in services) {
+          
+          
+        };
+
+        
 
         //Search using js/netflix.js
         n = new NetFlix();
