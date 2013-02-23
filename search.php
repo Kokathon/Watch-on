@@ -1,5 +1,6 @@
 <?php
     $param = $_GET[ 'term' ];
+    $callback = $_GET[ 'callback' ];
     /*
     // Lovefilm search
     include ('services/lovefilm.php' );
@@ -17,6 +18,6 @@
     $results = array_merge( $movies, $tv );
 
     header( 'Content-type: application/json' );
-    echo "callback(";
+    echo $callback . "(";
     echo json_encode( $results );
     echo ");";
