@@ -13,7 +13,7 @@
             $movies = array();
             foreach( $moviesResult as $movie ) :
                 $movies = array(
-                    'title' => $movie->title,
+                    'title' => $movie['title'],
                     'service' => 'hbo'
                 );
             endforeach;
