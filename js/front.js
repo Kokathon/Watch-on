@@ -4,7 +4,9 @@
         var searchTimeout,
             span = ["span12", "span6", "span4", "span3", "span2", "span1"],
             currentSpan = 0,
-            services = {};
+            services = {},
+            spanBase = 12,
+            populating = false;
 
         //Search using search.php
         $.ajax( {
@@ -41,26 +43,50 @@
         }
 
         function populateTable( objects, serviceName ) {
-            if ( currentSpan > 0 ) {
-                $( "." + span[currentSpan - 1] ).removeClass( span[currentSpan - 1] ).addClass( span[currentSpan] );
-            }
-            $( ".service-" + serviceName ).remove();
-            var html = "<div class='" + span[currentSpan] + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
+            // Make sure it's only run once at a time
+            if ( !populating ) {
+                populating = true;
+                var newSpan,
+                    prevSpan = 12;
 
-            $.each( objects, function ( index, element ) {
-                if( element !== null ) {
-                    html += "<tr><td>" + element.title + "</td></tr>";
+                if ( currentSpan > 0 ) {
+                    newSpan = Math.floor( spanBase / currentSpan );
+                    if ( currentSpan > 1 ) {
+                        prevSpan = Math.floor( spanBase / ( currentSpan - 1 ) );
+                    }
+                    console.log( newSpan );
+                    $( 'div:hasClassStartingWith("span")' ).removeClass( 'span' + prevSpan ).addClass( 'span' + newSpan );
+                } else {
+                    newSpan = spanBase;
                 }
-            } );
+                /*
+                 if ( currentSpan > 0 ) {
+                 $( "." + span[currentSpan - 1] ).removeClass( span[currentSpan - 1] ).addClass( span[currentSpan] );
+                 }*/
+                $( ".service-" + serviceName ).remove();
+                //var html = "<div class='" + span[currentSpan] + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
+                var html = "<div class='span" + newSpan + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
 
-            if ( objects.length === 0 ) {
-                html += "<tr class='warning'><td>No results!</td></tr>";
+                $.each( objects, function ( index, element ) {
+                    if ( element !== null ) {
+                        html += "<tr><td>" + element.title + "</td></tr>";
+                    }
+                } );
+
+                if ( objects.length === 0 ) {
+                    html += "<tr class='warning'><td>No results!</td></tr>";
+                }
+
+                html += "</table></div>";
+
+                $( ".js-results" ).append( html );
+                currentSpan += 1;
+                populating = false;
+            } else {
+                setTimeout( function () {
+                    populateTable( objects, serviceName );
+                }, 10 );
             }
-
-            html += "</table></div>";
-
-            $( ".js-results" ).append( html );
-            currentSpan += 1;
         }
 
         $( "body" ).on( "keyup", "input", function () {
@@ -97,7 +123,7 @@
                     populateArray( data, 'netflix' );
                 } );
 
-            }, 200 );
+            }, 500 );
         } );
 
         function capitaliseFirstLetter( string ) {
@@ -109,5 +135,10 @@
             $( "#log" ).scrollTop( 0 );
         }
 
+        $.expr[':'].hasClassStartingWith = function ( el, i, selector ) {
+            var re = new RegExp( "\\b" + selector[3] );
+            return re.test( el.className );
+        }
+
     } );
-}(jQuery));
+}( jQuery ));
