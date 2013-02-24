@@ -79,11 +79,17 @@
                     newSpan = spanBase;
                 }
                 
-                var html = "<div class='span" + newSpan + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
+                var html = "<div class='span" + newSpan + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>",
+                    icon = '';
 
                 $.each( objects, function ( index, element ) {
                     if ( element !== null ) {
-                        html += "<tr><td>" + element.title + "</td></tr>";
+                        if( element.type === 'movie' ){
+                            icon = '<i class="icon-film pull-right"></i>';
+                        }else if( element.type === 'tv' ){
+                            icon = '<i class="icon-tasks pull-right"></i>';
+                        }
+                        html += '<tr><td>' + element.title + icon + '</td></tr>';
                     }
                 } );
 
