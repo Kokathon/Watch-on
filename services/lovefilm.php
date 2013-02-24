@@ -15,7 +15,7 @@
                     continue;
                 endif;
                 $this->movies[] = array(
-                    'title' => $movie,
+                    'title' => utf8_encode( $movie ),
                     'type' => 'movie',
                     'service' => 'lovefilm'
                 );
@@ -33,7 +33,7 @@
                     continue;
                 endif;
                 $this->shows[] = array(
-                    'title' => $show,
+                    'title' => utf8_encode( $show ),
                     'type' => 'tv',
                     'service' => 'lovefilm'
                 );
