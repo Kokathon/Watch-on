@@ -6,7 +6,7 @@ Class Voddler {
 	private static $BASE_URL = 'http://api.voddler.com/metaapi/';
 
 	public function findMovies($q) {
-		$url = self::$BASE_URL . 'search/1?offset=0&count=100&q=' . $q;
+		$url = self::$BASE_URL . 'search/1?offset=0&count=50&q=' . $q;
 		$data = file_get_contents($url);
 		$obj = json_decode($data);
 
