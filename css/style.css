@@ -16,3 +16,22 @@
     text-transform: uppercase;
     width: 100%;
 }
+
+.service-netflix .service-logo {
+  background-image: url('../img/netflix-logo.png');
+}
+
+.service-headweb .service-logo {
+  background-image: url('../img/headweb-logo.png');
+}
+
+.service-hbo .service-logo {
+  background-image: url('../img/hbo-logo.png');
+}
+
+.service-logo {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100px;
+  height: 50px;
+}

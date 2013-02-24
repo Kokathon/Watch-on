@@ -79,7 +79,7 @@
                     newSpan = spanBase;
                 }
                 
-                var html = "<div class='span" + newSpan + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
+                var html = "<div class='span" + newSpan + " service-" + serviceName + "'><div class='service-logo'><!-- --></div><table class='table table-condensed table-hover table-striped js-table-viaplay'>";
 
                 $.each( objects, function ( index, element ) {
                     if ( element !== null ) {
