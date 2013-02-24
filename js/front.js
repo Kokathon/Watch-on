@@ -6,7 +6,8 @@
             currentSpan = 0,
             services = {},
             spanBase = 12,
-            populating = false;
+            populating = false,
+            internalServices = {};
 
         //Search using search.php
         $.ajax( {
@@ -18,6 +19,9 @@
                         id : data[i],
                         name : capitaliseFirstLetter( data[i] ),
                         results : []
+                    };
+                    internalServices[ data[i] ] = {
+                        id : data[i]
                     };
                 }
             }
@@ -35,9 +39,11 @@
             //First empty corresponding array
             services[service].results = [];
 
-            $.each( objects, function ( index, element ) {
-                services[service].results.push( element );
-            } );
+            if( objects.length > 0 ) {
+                $.each( objects, function ( index, element ) {
+                    services[service].results.push( element );
+                } );
+            }
 
             populateTable( services[service].results, services[service].name );
         }
@@ -45,6 +51,7 @@
         function populateTable( objects, serviceName ) {
             // Make sure it's only run once at a time
             if ( !populating ) {
+                console.log( objects.length );
                 populating = true;
                 var newSpan,
                     prevSpan = 12;
@@ -54,7 +61,6 @@
                     if ( currentSpan > 1 ) {
                         prevSpan = Math.floor( spanBase / ( currentSpan - 1 ) );
                     }
-                    console.log( newSpan );
                     $( 'div:hasClassStartingWith("span")' ).removeClass( 'span' + prevSpan ).addClass( 'span' + newSpan );
                 } else {
                     newSpan = spanBase;
@@ -83,8 +89,11 @@
                 currentSpan += 1;
                 populating = false;
             } else {
+                var myObjects = objects,
+                    myServiceName = serviceName;
+
                 setTimeout( function () {
-                    populateTable( objects, serviceName );
+                    populateTable( myObjects, myServiceName );
                 }, 10 );
             }
         }
@@ -99,7 +108,7 @@
 
                 currentSpan = 0;
 
-                $.each( services, function ( service ) {
+                $.each( internalServices, function ( service ) {
                     //Search using search.php
                     $.ajax( {
                         url : "http://kokarn.com/kokathon/repos/Watch-on/search.php",
@@ -138,7 +147,7 @@
         $.expr[':'].hasClassStartingWith = function ( el, i, selector ) {
             var re = new RegExp( "\\b" + selector[3] );
             return re.test( el.className );
-        }
+        };
 
     } );
 }( jQuery ));
