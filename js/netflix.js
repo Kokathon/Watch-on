@@ -12,7 +12,7 @@ NetFlix.prototype = {
 			'$filter=substringof(\'' + titel + '\',Name) and Type eq \'Movie\'&' +
 			'$callback=callback&' + 
 			'$select=Name&' +
-			'$skip=0&top=50&' +
+			'$inlinecount=allpages&$top=50&' +
 			'$format=json';
 
 		var success = function (data) {
@@ -44,7 +44,7 @@ NetFlix.prototype = {
 			'$filter=substringof(\'' + titel + '\',Name) and Type eq \'Series\'&' +
 			'$callback=callback&' + 
 			'$select=Name&' +
-			'$skip=0&top=50&' +
+			'$inlinecount=allpages&$top=50&' +
 			'$format=json';
 
 		var success = function (data) {
