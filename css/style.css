@@ -37,6 +37,10 @@ h1 {
     width: 100%;
 }
 
+.progress {
+    display: none;
+}
+
 .progress.no-transition .bar {
 
     -webkit-transition: width 0 ease;

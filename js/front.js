@@ -128,6 +128,8 @@
                     width : '0'
                 });
 
+                $progressbar.show();
+
                 currentSpan = 0;
                 servicesRequested = 0;
 
