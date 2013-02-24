@@ -87,7 +87,7 @@
                         if( element.type === 'movie' ){
                             icon = '<i class="icon-film pull-right"></i>';
                         }else if( element.type === 'tv' ){
-                            icon = '<i class="icon-tasks pull-right"></i>';
+                            icon = '<i class="icon-picture pull-right"></i>';
                         }
                         html += '<tr><td>' + element.title + icon + '</td></tr>';
                     }
