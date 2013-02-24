@@ -7,7 +7,7 @@ Class Voddler {
 
 	public function findMovies($q) {
 		$url = self::$BASE_URL . 'search/1?offset=0&count=50&q=' . urlencode($q);
-		$data = file_get_contents($url);
+		$data = @file_get_contents($url);
 		$obj = json_decode($data);
 
 		$movies = array();

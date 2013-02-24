@@ -6,7 +6,7 @@
 
         public function searchMovies( $param ) {
             $param = urlencode( $param );
-            $data = simplexml_load_file( self::$apiBase . $param );
+            $data = @simplexml_load_file( self::$apiBase . $param );
             foreach ( $data->searchresult->list->content as $result ) :
                 if ( isset( $result->originalname ) ) :
                     $name = (string)$result->originalname; else :

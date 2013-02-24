@@ -7,7 +7,7 @@
         private $shows = array();
 
         public function findAllMovies() {
-            $data = file_get_contents( $this->movieUrl );
+            $data = @file_get_contents( $this->movieUrl );
             preg_match_all( '/<ul>(.+?)<\/ul>/s', $data, $matches );
             $filterList = array_slice( $matches[ 0 ], 2, count( $matches ) - 8 );
             foreach ( $filterList as $letterList ) :
@@ -17,7 +17,7 @@
         }
 
         public function findAllTV() {
-            $data = file_get_contents( $this->tvUrl );
+            $data = @file_get_contents( $this->tvUrl );
             preg_match_all( '/<ul>(.+?)<\/ul>/s', $data, $matches );
             $filterList = array_slice( $matches[ 0 ], 1, count( $matches ) - 8 );
             foreach ( $filterList as $letterList ) :

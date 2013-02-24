@@ -7,7 +7,7 @@
         private $shows = array();
 
         public function findAllMovies(){
-            $data = file_get_contents( $this->movieUrl );
+            $data = @file_get_contents( $this->movieUrl );
             $moviesResult = json_decode( $data );
 
             $movies = array();
@@ -19,7 +19,7 @@
         }
 
         public function findAllTV(){
-            $data = file_get_contents( $this->tvUrl );
+            $data = @file_get_contents( $this->tvUrl );
             $showsResult = json_decode( $data );
 
             $shows = array();
