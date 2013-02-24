@@ -1,4 +1,4 @@
-.progress.no-transition {
+.progress.no-transition .bar {
 
   -webkit-transition: width 0 ease;
      -moz-transition: width 0 ease;

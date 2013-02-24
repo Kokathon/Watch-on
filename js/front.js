@@ -114,6 +114,11 @@
 
             searchTimeout = setTimeout( function () {
 
+                $progressbar.addClass('no-transition');
+                $progressbar.find( '.bar' ).css({
+                    width : '0'
+                });
+
                 currentSpan = 0;
                 servicesRequested = 0;
 
@@ -130,6 +135,7 @@
                             term : term
                         },
                         success : function ( data ) {
+                            $progressbar.removeClass('no-transition');
                             populateArray( data, service );
                         }
                     } );
