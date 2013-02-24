@@ -111,7 +111,7 @@
             }
         }
 
-        $( "body" ).on( 'input', 'input', function () {
+        $( "body" ).on( 'keyup input', 'input', function () {
 
             var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
                 $progressbar = $( '.js-progress' );
