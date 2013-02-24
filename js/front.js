@@ -44,7 +44,7 @@
                 } );
             }
 
-            populateTable( services[service].results, services[service].name );
+            populateTable( services[service].results, services[service].id );
         }
 
         function populateTable( objects, serviceName ) {
@@ -65,7 +65,7 @@
                     newSpan = spanBase;
                 }
 
-                $( ".service-" + serviceName ).remove();
+                //$( ".service-" + serviceName ).remove();
                 
                 var html = "<div class='span" + newSpan + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
 
@@ -102,6 +102,8 @@
             searchTimeout = setTimeout( function () {
 
                 currentSpan = 0;
+
+                $( '.js-results' ).children().remove();
 
                 $.each( internalServices, function ( service ) {
                     //Search using search.php
