@@ -10,6 +10,9 @@
             $data = file_get_contents( $this->searchMovieBase . $param );
             preg_match_all( '/<h2><a.+?title="(.+?)".+?<\/h2>/s', $data, $matches );
             foreach( $matches[ 1 ] as $movie ) :
+                if( $movie == 'null' ) :
+                    continue;
+                endif;
                 $this->movies[] = array(
                     'title' => $movie,
                     'type' => 'movie',
@@ -24,6 +27,9 @@
             $data = file_get_contents( $this->searchTvBase . $param );
             preg_match_all( '/<h2><a.+?title="(.+?)".+?<\/h2>/s', $data, $matches );
             foreach( $matches[ 1 ] as $show ) :
+                if( $show == 'null' ) :
+                    continue;
+                endif;
                 $this->shows[] = array(
                     'title' => $show,
                     'type' => 'tv',
