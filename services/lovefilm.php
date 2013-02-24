@@ -16,7 +16,6 @@
                     'service' => 'lovefilm'
                 );
             endforeach;
-            //$this->movies = array_merge( $this->movies, $matches[ 1 ] );
 
             return $this->movies;
         }
@@ -24,7 +23,6 @@
         public function searchTv( $param ) {
             $data = file_get_contents( $this->searchTvBase . $param );
             preg_match_all( '/<h2><a.+?title="(.+?)".+?<\/h2>/s', $data, $matches );
-            $this->shows = array_merge( $this->shows, $matches[ 1 ] );
             foreach( $matches[ 1 ] as $show ) :
                 $this->shows[] = array(
                     'title' => $show,
