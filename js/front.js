@@ -110,6 +110,10 @@
             var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
                 $progressbar = $( '.js-progress' );
 
+            if( term.length <= 1 ){
+                return;
+            }
+
             clearTimeout( searchTimeout );
 
             searchTimeout = setTimeout( function () {
