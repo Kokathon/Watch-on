@@ -4,10 +4,10 @@ body {
 
 .progress.no-transition .bar {
 
-  -webkit-transition: width 0 ease;
-     -moz-transition: width 0 ease;
-       -o-transition: width 0 ease;
-          transition: width 0 ease;
+    -webkit-transition: width 0 ease;
+    -moz-transition: width 0 ease;
+    -o-transition: width 0 ease;
+    transition: width 0 ease;
 }
 
 .search-form input {
@@ -26,20 +26,32 @@ body {
 }
 
 .service-netflix .service-logo {
-  background-image: url('../img/netflix-logo.png');
+    background-image: url('../img/netflix-logo.png');
 }
 
 .service-headweb .service-logo {
-  background-image: url('../img/headweb-logo.png');
+    background-image: url('../img/headweb-logo.png');
 }
 
 .service-hbo .service-logo {
-  background-image: url('../img/hbo-logo.png');
+    background-image: url('../img/hbo-logo.png');
+}
+
+.service-voddler .service-logo {
+    background-image: url('../img/voddler-logo.gif');
+}
+
+.service-viaplay .service-logo {
+    background-image: url('../img/viaplay-logo.png');
+}
+
+.service-lovefilm .service-logo {
+    background-image: url('../img/lovefilm-logo.gif');
 }
 
 .service-logo {
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 100px;
-  height: 50px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100px;
+    height: 50px;
 }
