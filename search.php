@@ -47,7 +47,6 @@
             $voddler = new Voddler();
             $movies = $voddler->findMovies($param);
 
-            print_r( $movies );
             $results = $movies;
             break;
         case 'headweb':
