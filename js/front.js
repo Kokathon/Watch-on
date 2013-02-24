@@ -11,7 +11,7 @@
 
         //Search using search.php
         $.ajax( {
-            url : "services.php",
+            url : "http://kokarn.com/kokathon/repos/Watch-on/services.php",
             dataType : "jsonp",
             success : function ( data ) {
                 for ( var i = 0; i < data.length; i++ ) {
@@ -78,7 +78,7 @@
                 } else {
                     newSpan = spanBase;
                 }
-                
+
                 var html = "<div class='span" + newSpan + " service-" + serviceName + "'><div class='service-logo'><!-- --></div><table class='table table-condensed table-hover table-striped'>",
                     icon = '';
 
@@ -111,7 +111,7 @@
             }
         }
 
-        $( "body" ).on( 'keyup', 'input', function () {
+        $( "body" ).on( 'input', 'input', function () {
 
             var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
                 $progressbar = $( '.js-progress' );
