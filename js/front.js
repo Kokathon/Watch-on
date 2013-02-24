@@ -111,8 +111,7 @@
             }
         }
 
-        $( "body" ).on( 'keyup input', 'input', function () {
-
+        function doSearch() {
             var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
                 $progressbar = $( '.js-progress' );
 
@@ -159,7 +158,13 @@
                 } );
 
             }, 500 );
-        } );
+        }
+
+        if ('oninput' in document.documentElement) {
+            $( "body" ).on( 'input', 'input', doSearch);
+        } else {
+            $( "body" ).on( 'keyup', 'input', doSearch);
+        }
 
         $( 'body' ).on( 'submit', 'form', function( event ){
             event.preventDefault();
