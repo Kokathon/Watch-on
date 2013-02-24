@@ -30,7 +30,8 @@ h1 {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-size: 80px;
-    padding: 50px 100px 50px 100px;
+    line-height: 102px;
+    padding: 50px 0 50px 0;
     text-align: center;
     text-transform: uppercase;
     width: 100%;
