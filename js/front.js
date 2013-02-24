@@ -111,7 +111,7 @@
             }
         }
 
-        $( "body" ).on( "keyup", "input", function () {
+        $( "body" ).on( 'keyup', 'input', function () {
 
             var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
                 $progressbar = $( '.js-progress' );
@@ -160,6 +160,10 @@
 
             }, 500 );
         } );
+
+        $( 'body' ).on( 'submit', 'form', function( event ){
+            event.preventDefault();
+        });
 
         function capitaliseFirstLetter( string ) {
             return string.charAt( 0 ).toUpperCase() + string.slice( 1 );

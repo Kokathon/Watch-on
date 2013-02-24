@@ -7,21 +7,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Watch on - Find your favourite movies and TV-shows</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Find what service your movie or tv-show is available on">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="js/netflix.js"></script>
-
-    <script src="js/front.js"></script>
 </head>
 <body>
     <div class="hero-unit">
@@ -39,5 +32,22 @@
             <p class="muted credit">You want to watch a movie or TV-show but don't know where? Now you can easily find out! Just search for what you're looking for here and we'll provide the information you want!</p>
         </div>
     </div>
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/netflix.js"></script>
+    <script src="js/front.js"></script>
+    <script>
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-3953312-16']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
 </body>
 </html>
