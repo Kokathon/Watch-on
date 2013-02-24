@@ -47,6 +47,15 @@
             $voddler = new Voddler();
             $movies = $voddler->findMovies($param);
 
+            print_r( $movies );
+            $results = $movies;
+            break;
+        case 'headweb':
+            // Headweb search
+            include( 'services/headweb.php' );
+            $headweb = new Headweb();
+            $movies = $headweb->searchMovies( $param );
+
             $results = $movies;
             break;
         default:
