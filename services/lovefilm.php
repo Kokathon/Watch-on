@@ -7,6 +7,7 @@
         private $shows = array();
 
         public function searchMovie( $param ){
+            $param = urlencode( $param );
             $data = file_get_contents( $this->searchMovieBase . $param );
             preg_match_all( '/<h2><a.+?title="(.+?)".+?<\/h2>/s', $data, $matches );
             foreach( $matches[ 1 ] as $movie ) :
@@ -24,6 +25,7 @@
         }
 
         public function searchTv( $param ) {
+            $param = urlencode( $param );
             $data = file_get_contents( $this->searchTvBase . $param );
             preg_match_all( '/<h2><a.+?title="(.+?)".+?<\/h2>/s', $data, $matches );
             foreach( $matches[ 1 ] as $show ) :
