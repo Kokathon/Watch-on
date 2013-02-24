@@ -6,7 +6,8 @@
             services = {},
             spanBase = 12,
             populating = false,
-            internalServices = {};
+            internalServices = {},
+            servicesRequested = 0;
 
         //Search using search.php
         $.ajax( {
@@ -35,16 +36,29 @@
 
         function populateArray( objects, service ) {
 
-            //First empty corresponding array
-            services[service].results = [];
+            servicesRequested++;
 
-            if( objects.length > 0 ) {
+            var $progressbar = $( '.js-progress' ),
+                newWidth = ( 100 / Object.keys(services).length ) * servicesRequested;
+
+            $progressbar.find( '.bar' ).css({
+                width : newWidth + '%'
+            });
+
+            if( newWidth === 100 ){
+                $progressbar.removeClass( 'active' );
+            }
+
+            if( objects.length > 0 ){
+                //First empty corresponding array
+                services[service].results = [];
+
                 $.each( objects, function ( index, element ) {
                     services[service].results.push( element );
                 } );
-            }
 
-            populateTable( services[service].results, services[service].id );
+                populateTable( services[service].results, services[service].id );
+            }
         }
 
         function populateTable( objects, serviceName ) {
@@ -64,8 +78,6 @@
                 } else {
                     newSpan = spanBase;
                 }
-
-                //$( ".service-" + serviceName ).remove();
                 
                 var html = "<div class='span" + newSpan + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
 
@@ -95,15 +107,18 @@
 
         $( "body" ).on( "keyup", "input", function () {
 
-            var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) );
+            var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
+                $progressbar = $( '.js-progress' );
 
             clearTimeout( searchTimeout );
 
             searchTimeout = setTimeout( function () {
 
                 currentSpan = 0;
+                servicesRequested = 0;
 
                 $( '.js-results' ).children().remove();
+                $progressbar.addClass( 'active' );
 
                 $.each( internalServices, function ( service ) {
                     //Search using search.php
@@ -115,9 +130,7 @@
                             term : term
                         },
                         success : function ( data ) {
-                            if ( data.length > 0 ) {
-                                populateArray( data, service );
-                            }
+                            populateArray( data, service );
                         }
                     } );
                 } );
