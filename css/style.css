@@ -1,0 +1,7 @@
+.progress.no-transition {
+
+  -webkit-transition: width 0 ease;
+     -moz-transition: width 0 ease;
+       -o-transition: width 0 ease;
+          transition: width 0 ease;
+}
