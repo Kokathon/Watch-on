@@ -2,7 +2,6 @@
     "use strict";
     $( document ).ready( function () {
         var searchTimeout,
-            span = ["span12", "span6", "span4", "span3", "span2", "span1"],
             currentSpan = 0,
             services = {},
             spanBase = 12,
@@ -51,8 +50,8 @@
         function populateTable( objects, serviceName ) {
             // Make sure it's only run once at a time
             if ( !populating ) {
-                console.log( objects.length );
                 populating = true;
+                currentSpan += 1;
                 var newSpan,
                     prevSpan = 12;
 
@@ -65,12 +64,9 @@
                 } else {
                     newSpan = spanBase;
                 }
-                /*
-                 if ( currentSpan > 0 ) {
-                 $( "." + span[currentSpan - 1] ).removeClass( span[currentSpan - 1] ).addClass( span[currentSpan] );
-                 }*/
+
                 $( ".service-" + serviceName ).remove();
-                //var html = "<div class='" + span[currentSpan] + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
+                
                 var html = "<div class='span" + newSpan + " service-" + serviceName + "'><table class='table table-condensed table-hover table-striped js-table-viaplay'><tr><th>" + capitaliseFirstLetter( serviceName ) + "</th></tr>";
 
                 $.each( objects, function ( index, element ) {
@@ -86,7 +82,6 @@
                 html += "</table></div>";
 
                 $( ".js-results" ).append( html );
-                currentSpan += 1;
                 populating = false;
             } else {
                 var myObjects = objects,
