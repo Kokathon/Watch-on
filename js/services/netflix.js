@@ -1,12 +1,10 @@
 
-function NetFlix () {
-
+function netflix () {
+	this._BASE_URL		= 'http://odata.netflix.com/v2/';
+	this._SERVICE_NAME 	= 'netflix';
 }
 
-NetFlix._BASE_URL		= 'http://odata.netflix.com/v2/';
-NetFlix._SERVICE_NAME 	= 'netflix';
-
-NetFlix.prototype = {
+netflix.prototype = {
 
 	getJsonpCallback: function () {
 		return 'jQueryCallback' + (new Date).getTime();
@@ -47,10 +45,10 @@ NetFlix.prototype = {
 
 	},
 
-	findSeries: function (term, callback) {
+	findTv: function (term, callback) {
 		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
 
-		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
+		var url = this._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + term + '\',Name) and Type eq \'Series\'&' +
 			'$callback=' + jsonpCallback + '&' +
 			'$select=Name&' +
@@ -86,7 +84,7 @@ NetFlix.prototype = {
 
 		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
 
-		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
+		var url = this._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + term + '\',Name) and (Type eq \'Series\' or Type eq \'Movie\')&' +
 			'$callback=' + jsonpCallback + '&' +
 			'$select=Name,Type&' +
