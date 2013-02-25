@@ -80,7 +80,8 @@
                 }
 
                 var html = "<div class='span" + newSpan + " service-" + serviceName + "'><div class='service-logo'><!-- --></div><table class='table table-condensed table-hover table-striped'>",
-                    icon = '';
+                    icon = '',
+                    elementText = '';
 
                 $.each( objects, function ( index, element ) {
                     if ( element !== null ) {
@@ -89,7 +90,13 @@
                         }else if( element.type === 'tv' ){
                             icon = '<i class="icon-picture pull-right"></i>';
                         }
-                        html += '<tr><td>' + element.title + icon + '</td></tr>';
+
+                        if( element.url ) {
+                            elementText = '<a href="' + element.url + '" title="' + element.title + ' on ' + element.service + '">' + element.title + '</a>';
+                        } else {
+                            elementText = element.title;
+                        }
+                        html += '<tr><td>' + elementText + icon + '</td></tr>';
                     }
                 } );
 
