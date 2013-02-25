@@ -2,6 +2,7 @@
 
     class Headweb {
         private STATIC $apiBase = 'http://www.headweb.com/v4/searchhint/filter(-adult)?apikey=d91b8d77fe2f4c3dbbebbad9ea5dd201&c=0&fields=name&limit=20&offset=0&query=';
+        private static $linkBase = 'http://www.headweb.com/sv/';
         private $movies = array();
 
         public function searchMovies( $param ) {
@@ -15,7 +16,8 @@
                 $this->movies[ ] = array(
                     'title' => $name,
                     'type' => 'movie',
-                    'service' => 'headweb'
+                    'service' => 'headweb',
+                    'url' => self::$linkBase . (string)$result->attributes()->id
                 );
             endforeach;
 
