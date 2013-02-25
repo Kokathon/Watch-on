@@ -1,6 +1,8 @@
 <?php
 
-    class Viaplay {
+    include ( 'service.php' );
+
+    class Viaplay extends Service {
         private $tvUrl = 'http://viaplay.se/tv/alphabetical';
         private $movieUrl = 'http://viaplay.se/film/samtliga/250/alphabetical';
         private static $movieBaseUrl = 'http://viaplay.se';
@@ -115,6 +117,65 @@
                 $collection->insert( $document );
             endforeach;
         }
+
+        public function findMovies($term) {
+            $m = new MongoClient();
+
+            // select a database
+            $db = $m->watchon;
+
+            // select a collection (analogous to a relational database's table)
+            $collectionName = 'viaplaymovie';
+            $collection = $db->$collectionName;
+
+            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $findResults = $collection->find( array( 'title' => $condition ) );
+
+            $results = array();
+
+            foreach ( $findResults as $result ) :
+                $results[ ] = array(
+                    'title' => $result[ 'title' ],
+                    'service' => $result[ 'service' ],
+                    'type' => $result[ 'type' ],
+                    'url' => $result[ 'url' ]
+                );
+            endforeach;
+
+            return $results;
+        }
+
+        public function findTv($term) {
+             $m = new MongoClient();
+
+            // select a database
+            $db = $m->watchon;
+
+            // select a collection (analogous to a relational database's table)
+            $collectionName = 'viaplaytv';
+            $collection = $db->$collectionName;
+
+            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $findResults = $collection->find( array( 'title' => $condition ) );
+
+            $results = array();
+
+            foreach ( $findResults as $result ) :
+                $results[ ] = array(
+                    'title' => $result[ 'title' ],
+                    'service' => $result[ 'service' ],
+                    'type' => $result[ 'type' ],
+                    'url' => $result[ 'url' ]
+                );
+            endforeach;
+
+            return $results;
+        }
+
+        public function findAll($term) {
+            array_merge($this->findMovies($term), $this->findTv($term));
+        }
+
     }
 
 ?>
