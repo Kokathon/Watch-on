@@ -6,13 +6,13 @@
         $callback = 'callback';
     endif;
 
-    $serviceFiles = scandir( 'services' );
+    $serviceFiles = scandir( 'js/services' );
     foreach( $serviceFiles as $service ):
         if( $service[0] === '.' ) :
             continue;
         endif;
 
-        $services[] = substr( $service, 0, strlen( $service ) - 4);
+        $services[] = substr( $service, 0, strlen( $service ) - 3);
 
     endforeach;
 
