@@ -1,14 +1,18 @@
 <?php
-    $param = '';
+    $term = '';
     $callback = '';
+    $find = '';
     $results = array();
 
+
     if ( isset( $_GET[ 'term' ] ) ) {
-        $param = urldecode( $_GET[ 'term' ] );
+        $term = urldecode( $_GET[ 'term' ] );
     }
 
     if ( isset( $_GET[ 'callback' ] ) ) {
         $callback = $_GET[ 'callback' ];
+    } else {
+        $callback = 'callback';
     }
 
     if( isset( $_GET[ 'service' ] ) ) :
@@ -17,59 +21,33 @@
         $service = 'viaplay';
     endif;
 
-    switch( $service ) :
-        case 'lovefilm':
-            // Lovefilm search
-            include ( 'services/lovefilm.php' );
-            $lovefilm = new Lovefilm();
-            $movies = $lovefilm->searchMovie( $param );
-            $tv = $lovefilm->searchTv( $param );
+    if (isset($_GET['find'])) {
+        $find = $_GET['find'];
+    } else {
+        $find = 'all';
+    }
 
-            $lovefilm_results = array_merge( $movies, $tv );
-
-            $results = $lovefilm_results;
+    switch ($find) {
+        case 'movie':
+            $findFunction = 'findMovies';
             break;
-        case 'hbo':
-            // Hbo search
-            include( 'services/hbo.php' );
-            $hbo = new Hbo();
-
-            $movies = $hbo->search( $param, 'movie' );
-            $tv = $hbo->search( $param, 'tv' );
-
-            $hbo_results = array_merge( $movies, $tv );
-
-            $results = $hbo_results;
-            break;
-        case 'voddler':
-            // Voddler search
-            include('services/voddler.php');
-            $voddler = new Voddler();
-            $movies = $voddler->findAll($param);
-
-            $results = $movies;
-            break;
-        case 'headweb':
-            // Headweb search
-            include( 'services/headweb.php' );
-            $headweb = new Headweb();
-            $movies = $headweb->searchMovies( $param );
-
-            $results = $movies;
+        case 'tv':
+            $findFunction = 'findTv';
             break;
         default:
-            // Viaplay search
-            include( 'services/viaplay.php' );
-            $viaplay = new Viaplay();
-
-            $movies = $viaplay->search( $param, 'movie' );
-            $tv = $viaplay->search( $param, 'tv' );
-
-            $viaplay_results = array_merge( $movies, $tv );
-
-            $results = $viaplay_results;
+            $findFunction = 'findAll';
             break;
-    endswitch;
+    }
+
+    require_once('services/lovefilm.php');
+    require_once('services/hbo.php');
+    require_once('services/viaplay.php');
+    require_once('services/voddler.php');
+    require_once('services/headweb.php');
+
+
+    $service = new $service();
+    $results = $service->$findFunction($term);
 
     header( 'Content-type: application/json' );
     echo $callback . "(";
