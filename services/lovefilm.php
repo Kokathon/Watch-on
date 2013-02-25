@@ -18,7 +18,7 @@
                     'title' => utf8_encode( $movie ),
                     'type' => 'movie',
                     'service' => 'lovefilm',
-                    'url' => $matches[ 1 ][ $key ]
+                    'url' => utf8_encode( $matches[ 1 ][ $key ] )
                 );
             endforeach;
 
@@ -37,7 +37,7 @@
                     'title' => utf8_encode( $show ),
                     'type' => 'tv',
                     'service' => 'lovefilm',
-                    'url' => $matches[ 1 ][ $key ]
+                    'url' => utf8_encode( $matches[ 1 ][ $key ] )
                 );
             endforeach;
 
