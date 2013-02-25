@@ -5,8 +5,8 @@ include ( 'service.php' );
 class Voddler extends Service {
     private static $BASE_URL = 'http://api.voddler.com/metaapi/';
 
-    public function findMovies( $q ) {
-        $url = self::$BASE_URL . 'search/1?offset=0&count=50&q=' . urlencode( $q );
+    public function findMovies( $term ) {
+        $url = self::$BASE_URL . 'search/1?offset=0&count=50&q=' . urlencode( $term );
         $data = @file_get_contents( $url );
         $obj = json_decode( $data );
 
