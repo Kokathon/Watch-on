@@ -3,6 +3,7 @@
     class Hbo {
         private $tvUrl = 'http://hbonordic.com/rest-services-hook/series';
         private $movieUrl = 'http://hbonordic.com/rest-services-hook/movies?startIndex=0&count=5000';
+        private static $movieBaseUrl = 'http://hbonordic.com';
         private $movies = array();
         private $shows = array();
 
@@ -76,8 +77,7 @@
             // select a collection (analogous to a relational database's table)
             $collection = $db->hbomovie;
 
-            $results = $collection->find();
-            $results->remove();
+            $collection->remove();
 
             // add a record
             foreach ( $this->movies as $movie ) :
@@ -85,7 +85,7 @@
                     'title' => $movie->title,
                     'type' => 'movie',
                     'service' => 'hbo',
-                    'url' => $movie->url
+                    'url' => self::$movieBaseUrl . $movie->url
                 );
                 if ( !$collection->findOne( $document ) ) :
                     $collection->insert( $document );
@@ -96,16 +96,15 @@
 
             $collection = $db->hbotv;
 
-            $results = $collection->find();
-            $results->remove();
-            
+            $collection->remove();
+
             // add a record
             foreach ( $this->shows as $show ) :
                 $document = array(
                     'title' => $show->title,
                     'type' => 'tv',
                     'service' => 'hbo',
-                    'url' => $show->url
+                    'url' => self::$movieBaseUrl . $show->url
                 );
                 if ( !$collection->findOne( $document ) ) :
                     $collection->insert( $document );
