@@ -55,9 +55,6 @@
             $collectionName = 'viaplay' . $type;
             $collection = $db->$collectionName;
 
-            // Empty collection
-            $collection->remove();
-
             $condition = new MongoRegex( '/.*' . $param . '.*/i' );
             $findResults = $collection->find( array( 'title' => $condition ) );
 
