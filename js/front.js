@@ -155,7 +155,7 @@
                 //Search using js/netflix.js
                 var n = new NetFlix();
                 // populateArray()
-                n.findMovies( term, function ( data ) {
+                n.findAll( term, function ( data ) {
                     populateArray( data, 'netflix' );
                 } );
 
