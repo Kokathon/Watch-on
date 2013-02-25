@@ -47,13 +47,14 @@
             return $this->shows;
         }
 
-        public function findAll($term) {
-            /*
-            Tried http://www.lovefilm.se/browse/film/?rows=50&query=
-            but then we won't know if it is a movie or tv.
-            /Gyran
-            */
 
-            return array_merge($this->findMovies($term), $this->findTv($term));
+        /*
+        Tried http://www.lovefilm.se/browse/film/?rows=50&query=
+        but then we won't know if it is a movie or tv.
+        /Gyran
+        public function findAll($term) { 
+
         }
+        */
     }
+?>

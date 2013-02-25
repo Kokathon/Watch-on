@@ -167,10 +167,6 @@
 
             return $results;
         }
-
-        public function findAll($term) {
-            return array_merge($this->findMovies($term), $this->findTv($term));
-        }
-
-
     }
+?>
+

@@ -27,8 +27,4 @@
         public function findTv($term) {
             return array();
         }
-
-        public function findAll($term) {
-            return $this->findMovies($term);
-        }
-    }
+?>
