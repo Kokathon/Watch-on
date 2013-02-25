@@ -76,8 +76,7 @@
             // select a collection (analogous to a relational database's table)
             $collection = $db->hbomovie;
 
-            $results = $collection->find();
-            $results->remove();
+            $collection->remove();
 
             // add a record
             foreach ( $this->movies as $movie ) :
@@ -96,9 +95,8 @@
 
             $collection = $db->hbotv;
 
-            $results = $collection->find();
-            $results->remove();
-            
+            $collection->remove();
+
             // add a record
             foreach ( $this->shows as $show ) :
                 $document = array(
