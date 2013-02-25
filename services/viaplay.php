@@ -173,7 +173,7 @@
         }
 
         public function findAll($term) {
-            array_merge($this->findMovies($term), $this->findTv($term));
+            return array_merge($this->findMovies($term), $this->findTv($term));
         }
 
     }
