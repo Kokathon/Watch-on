@@ -45,7 +45,7 @@
             // Voddler search
             include('services/voddler.php');
             $voddler = new Voddler();
-            $movies = $voddler->findMovies($param);
+            $movies = $voddler->findAll($param);
 
             $results = $movies;
             break;
