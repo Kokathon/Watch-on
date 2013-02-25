@@ -20,19 +20,9 @@
                         name : capitaliseFirstLetter( data[i] ),
                         results : []
                     };
-                    internalServices[ data[i] ] = {
-                        id : data[i]
-                    };
                 }
             }
         } );
-
-        //Add netflix manually
-        services.netflix = {
-            id : "netflix",
-            name : "Netflix",
-            results : []
-        };
 
         function populateArray( objects, service ) {
 
@@ -118,7 +108,7 @@
             }
         }
 
-        function doSearch() {
+        function doSearch(type) {
             var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
                 $progressbar = $( '.js-progress' );
 
@@ -143,28 +133,28 @@
                 $( '.js-results' ).children().remove();
                 $progressbar.addClass( 'active' );
 
-                $.each( internalServices, function ( service ) {
-                    //Search using search.php
-                    $.ajax( {
-                        url : "http://kokarn.com/kokathon/repos/Watch-on/search.php",
-                        dataType : "jsonp",
-                        data : {
-                            service : service,
-                            term : term
-                        },
-                        success : function ( data ) {
-                            $progressbar.removeClass('no-transition');
-                            populateArray( data, service );
-                        }
-                    } );
-                } );
+                $.each(services, function (service) {
 
-                //Search using js/netflix.js
-                var n = new NetFlix();
-                // populateArray()
-                n.findAll( term, function ( data ) {
-                    populateArray( data, 'netflix' );
-                } );
+                    var callback = function (data) {
+                        $progressbar.removeClass('no-transition');
+                        populateArray(data, service);
+                    }
+
+                    var s = new window[service]();
+
+                    switch (type) {
+                        case 'tv':
+                            s.findTv(term, callback);
+                            break;
+                        case 'movie':
+                            s.findMovies(term, callback);
+                            break;
+                        default:
+                            s.findAll(term, callback);
+                            break;
+                    }
+
+                });
 
             }, 500 );
         }
