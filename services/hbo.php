@@ -1,6 +1,7 @@
 <?php
+    include ( 'service.php' );
 
-    class Hbo {
+    class Hbo extends Service {
         private $tvUrl = 'http://hbonordic.com/rest-services-hook/series';
         private $movieUrl = 'http://hbonordic.com/rest-services-hook/movies?startIndex=0&count=5000';
         private static $movieBaseUrl = 'http://hbonordic.com';
@@ -111,4 +112,65 @@
                 endif;
             endforeach;
         }
+
+
+        public function findMovies($term) {
+            $m = new MongoClient();
+
+            // select a database
+            $db = $m->watchon;
+
+            // select a collection (analogous to a relational database's table)
+            $collectionName = 'hbomovies';
+            $collection = $db->$collectionName;
+
+            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $findResults = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+
+            $results = array();
+
+            foreach( $findResults as $result ) :
+                $results[] = array(
+                    'title' => $result[ 'title' ],
+                    'service' => $result[ 'service' ],
+                    'type' => 'movie',
+                    'url' => $result[ 'url' ]
+                );
+            endforeach;
+
+            return $results;
+        }
+
+        public function findTv($term) {
+            $m = new MongoClient();
+
+            // select a database
+            $db = $m->watchon;
+
+            // select a collection (analogous to a relational database's table)
+            $collectionName = 'hbotv';
+            $collection = $db->$collectionName;
+
+            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $findResults = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+
+            $results = array();
+
+            foreach( $findResults as $result ) :
+                $results[] = array(
+                    'title' => $result[ 'title' ],
+                    'service' => $result[ 'service' ],
+                    'type' => 'tv',
+                    'url' => $result[ 'url' ]
+                );
+            endforeach;
+
+            return $results;
+        }
+
+        public function findAll($term) {
+            return array_merge($this->findMovies($term), $this->findTv($term));
+        }
+
+
     }
