@@ -4,14 +4,19 @@ function NetFlix () {
 }
 
 NetFlix._BASE_URL		= 'http://odata.netflix.com/v2/';
+NetFlix._SERVICE_NAME 	= 'netflix';
 
 NetFlix.prototype = {
 
-	findMovies: function (titel, callback) {
+	getJsonpCallback: function () {
+		return 'jQueryCallback' + (new Date).getTime();
+	},
+
+	findMovies: function (term, callback) {
 		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
 
-		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
-			'$filter=substringof(\'' + titel + '\',Name) and Type eq \'Movie\'&' +
+		var url = this._BASE_URL + 'Catalog/Titles?' +
+			'$filter=substringof(\'' + term + '\',Name) and Type eq \'Movie\'&' +
 			'$callback=' + jsonpCallback + '&' +
 			'$select=Name&' +
 			'$inlinecount=allpages&$top=50&' +
@@ -42,11 +47,11 @@ NetFlix.prototype = {
 
 	},
 
-	findSeries: function (titel, callback) {
+	findSeries: function (term, callback) {
 		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
 
 		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
-			'$filter=substringof(\'' + titel + '\',Name) and Type eq \'Series\'&' +
+			'$filter=substringof(\'' + term + '\',Name) and Type eq \'Series\'&' +
 			'$callback=' + jsonpCallback + '&' +
 			'$select=Name&' +
 			'$inlinecount=allpages&$top=50&' +
@@ -77,12 +82,12 @@ NetFlix.prototype = {
 
 	},
 
-	findAll: function (titel, callback) {
+	findAll: function (term, callback) {
 
 		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
 
 		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
-			'$filter=substringof(\'' + titel + '\',Name) and (Type eq \'Series\' or Type eq \'Movie\')&' +
+			'$filter=substringof(\'' + term + '\',Name) and (Type eq \'Series\' or Type eq \'Movie\')&' +
 			'$callback=' + jsonpCallback + '&' +
 			'$select=Name,Type&' +
 			'$inlinecount=allpages&$top=50&' +
