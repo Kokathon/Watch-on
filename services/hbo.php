@@ -12,7 +12,7 @@
 
             $movies = array();
             foreach( $moviesResult->entry as $movie ) :
-                $movies[] = $movie->title;
+                $movies[] = $movie;
             endforeach;
 
             $this->movies = $movies;
@@ -24,7 +24,7 @@
 
             $shows = array();
             foreach( $showsResult as $show ) :
-                $shows[] = $show->title;
+                $shows[] = $show;
             endforeach;
 
             $this->shows = $shows;
@@ -45,7 +45,8 @@
             $db = $m->watchon;
 
             // select a collection (analogous to a relational database's table)
-            $collection = $db->$type;
+            $collectionName = 'hbo' . $type;
+            $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $param . '.*/i' );
             $findResults = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
@@ -56,7 +57,8 @@
                 $results[] = array(
                     'title' => $result[ 'title' ],
                     'service' => $result[ 'service' ],
-                    'type' => $type
+                    'type' => $type,
+                    'url' => $result[ 'url' ]
                 );
             endforeach;
 
@@ -72,12 +74,18 @@
             $db = $m->watchon;
 
             // select a collection (analogous to a relational database's table)
-            $collection = $db->movie;
+            $collection = $db->hbomovie;
+
+            $results = $collection->find();
+            $results->remove();
+
             // add a record
             foreach ( $this->movies as $movie ) :
                 $document = array(
-                    'title' => $movie,
-                    'service' => 'hbo'
+                    'title' => $movie->title,
+                    'type' => 'movie',
+                    'service' => 'hbo',
+                    'url' => $movie->url
                 );
                 if ( !$collection->findOne( $document ) ) :
                     $collection->insert( $document );
@@ -86,12 +94,18 @@
 
             $this->findAllTV();
 
-            $collection = $db->tv;
+            $collection = $db->hbotv;
+
+            $results = $collection->find();
+            $results->remove();
+            
             // add a record
             foreach ( $this->shows as $show ) :
                 $document = array(
-                    'title' => $show,
-                    'service' => 'hbo'
+                    'title' => $show->title,
+                    'type' => 'tv',
+                    'service' => 'hbo',
+                    'url' => $show->url
                 );
                 if ( !$collection->findOne( $document ) ) :
                     $collection->insert( $document );
