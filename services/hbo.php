@@ -1,5 +1,5 @@
 <?php
-    include ( 'service.php' );
+    require_once ( 'service.php' );
 
     class Hbo extends Service {
         private $tvUrl = 'http://hbonordic.com/rest-services-hook/series';

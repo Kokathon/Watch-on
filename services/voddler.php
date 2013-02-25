@@ -1,6 +1,6 @@
 <?php
 
-include ( 'service.php' );
+require_once ( 'service.php' );
 
 class Voddler extends Service {
     private static $BASE_URL = 'http://api.voddler.com/metaapi/';

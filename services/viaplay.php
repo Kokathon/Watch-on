@@ -1,6 +1,6 @@
 <?php
 
-    include ( 'service.php' );
+    require_once ( 'service.php' );
 
     class Viaplay extends Service {
         private $tvUrl = 'http://viaplay.se/tv/alphabetical';

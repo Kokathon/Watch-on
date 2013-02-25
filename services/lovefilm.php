@@ -1,6 +1,6 @@
 <?php
 
-    include ( 'service.php' );
+    require_once ( 'service.php' );
 
     class Lovefilm extends Service {
         private $searchMovieBase = 'http://www.lovefilm.se/browse/film/film/?rows=50&query=';
