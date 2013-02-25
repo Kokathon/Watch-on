@@ -20,7 +20,6 @@
                     );
                 endforeach;
             endforeach;
-            print_r( $this->movies );
         }
 
         public function findAllTV() {
@@ -123,8 +122,5 @@
             endforeach;
         }
     }
-
-    $viaplay = new Viaplay();
-    $viaplay->findAllMovies();
 
 ?>
