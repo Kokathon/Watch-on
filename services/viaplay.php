@@ -47,7 +47,7 @@
             return $this->shows;
         }
 
-        public function search( $param, $type = 'movie' ) {
+        public function search( $term, $type = 'movie' ) {
             $m = new MongoClient();
 
             // select a database
@@ -57,7 +57,7 @@
             $collectionName = 'viaplay' . $type;
             $collection = $db->$collectionName;
 
-            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $condition = new MongoRegex( '/.*' . $term . '.*/i' );
             $findResults = $collection->find( array( 'title' => $condition ) );
 
             $results = array();
@@ -128,7 +128,7 @@
             $collectionName = 'viaplaymovie';
             $collection = $db->$collectionName;
 
-            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $condition = new MongoRegex( '/.*' . $term . '.*/i' );
             $findResults = $collection->find( array( 'title' => $condition ) );
 
             $results = array();
@@ -155,7 +155,7 @@
             $collectionName = 'viaplaytv';
             $collection = $db->$collectionName;
 
-            $condition = new MongoRegex( '/.*' . $param . '.*/i' );
+            $condition = new MongoRegex( '/.*' . $term . '.*/i' );
             $findResults = $collection->find( array( 'title' => $condition ) );
 
             $results = array();
