@@ -97,9 +97,7 @@
                     'type' => 'movie',
                     'url' => $movie[ 'url' ]
                 );
-                if ( !$collection->findOne( $document ) ) :
-                    $collection->insert( $document );
-                endif;
+                $collection->insert( $document );
             endforeach;
 
             $this->findAllTV();
@@ -117,9 +115,7 @@
                     'type' => 'tv',
                     'url' => $show[ 'url' ]
                 );
-                if ( !$collection->findOne( $document ) ) :
-                    $collection->insert( $document );
-                endif;
+                $collection->insert( $document );
             endforeach;
         }
     }
