@@ -8,9 +8,11 @@ NetFlix._BASE_URL		= 'http://odata.netflix.com/v2/';
 NetFlix.prototype = {
 
 	findMovies: function (titel, callback) {
-		url = NetFlix._BASE_URL + 'Catalog/Titles?' +
+		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
+
+		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + titel + '\',Name) and Type eq \'Movie\'&' +
-			'$callback=callback&' + 
+			'$callback=' + jsonpCallback + '&' +
 			'$select=Name&' +
 			'$inlinecount=allpages&$top=50&' +
 			'$format=json';
@@ -33,16 +35,19 @@ NetFlix.prototype = {
 		$.ajax({
 			dataType: 'jsonp',
 			url: url,
-			jsonpCallback: 'callback',
+			jsonp: false,
+			jsonpCallback: jsonpCallback,
 			success: success
 		});
 
 	},
 
 	findSeries: function (titel, callback) {
-		url = NetFlix._BASE_URL + 'Catalog/Titles?' +
+		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
+
+		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + titel + '\',Name) and Type eq \'Series\'&' +
-			'$callback=callback&' + 
+			'$callback=' + jsonpCallback + '&' +
 			'$select=Name&' +
 			'$inlinecount=allpages&$top=50&' +
 			'$format=json';
@@ -65,39 +70,44 @@ NetFlix.prototype = {
 		$.ajax({
 			dataType: 'jsonp',
 			url: url,
-			jsonpCallback: 'callback',
+			jsonp: false,
+			jsonpCallback: jsonpCallback,
 			success: success
 		});
 
 	},
 
 	findAll: function (titel, callback) {
-		url = NetFlix._BASE_URL + 'Catalog/Titles?' +
+
+		var jsonpCallback = 'jQueryCallback' + (new Date).getTime();
+
+		var url = NetFlix._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + titel + '\',Name) and (Type eq \'Series\' or Type eq \'Movie\')&' +
-			'$callback=callback&' + 
+			'$callback=' + jsonpCallback + '&' +
 			'$select=Name,Type&' +
 			'$inlinecount=allpages&$top=50&' +
 			'$format=json';
 
 		var success = function (data) {
 
-			var series = [];
+			var items = [];
 
 			$.each(data.d.results, function(index, item) {
-				series.push({
+				items.push({
 					service: 'netflix',
 					title: item.Name,
 					type: (item.Type == 'Movie' ? 'movie':'tv')
 				});
 			});
 
-			callback.call(null, series);
+			callback.call(null, items);
 		}
 
 		$.ajax({
 			dataType: 'jsonp',
 			url: url,
-			jsonpCallback: 'callback',
+			jsonp: false,
+			jsonpCallback: jsonpCallback,
 			success: success
 		});
 
