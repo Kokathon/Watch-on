@@ -52,7 +52,8 @@
             $db = $m->watchon;
 
             // select a collection (analogous to a relational database's table)
-            $collection = $db->$type;
+            $collectionName = 'viaplay' . $type;
+            $collection = $db->$collectionName;
 
             // Empty collection
             $collection->remove();
@@ -66,7 +67,7 @@
                 $results[ ] = array(
                     'title' => $result[ 'title' ],
                     'service' => $result[ 'service' ],
-                    'type' => $type,
+                    'type' => $result[ 'type' ],
                     'url' => $result[ 'url' ]
                 );
             endforeach;
