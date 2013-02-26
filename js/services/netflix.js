@@ -16,7 +16,7 @@ netflix.prototype = {
 		var url = this._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + term + '\',Name) and Type eq \'Movie\'&' +
 			'$callback=' + jsonpCallback + '&' +
-			'$select=Name&' +
+			'$select=Name,Url&' +
 			'$inlinecount=allpages&$top=50&' +
 			'$format=json';
 
@@ -28,7 +28,8 @@ netflix.prototype = {
 				movies.push({
 					service: 'netflix',
 					title: movie.Name,
-					type: 'movie'
+					type: 'movie',
+					url: movie.Url
 				});
 			});
 
@@ -51,7 +52,7 @@ netflix.prototype = {
 		var url = this._BASE_URL + 'Catalog/Titles?' +
 			'$filter=substringof(\'' + term + '\',Name) and Type eq \'Season\'&' +
 			'$callback=' + jsonpCallback + '&' +
-			'$select=Name&' +
+			'$select=Name,Url&' +
 			'$inlinecount=allpages&$top=50&' +
 			'$format=json';
 
@@ -63,7 +64,8 @@ netflix.prototype = {
 				series.push({
 					service: 'netflix',
 					title: serie.Name,
-					type: 'tv'
+					type: 'tv',
+					url: serie.Url
 				});
 			});
 
