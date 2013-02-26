@@ -39,7 +39,16 @@ class Voddler extends Service {
         foreach ( $obj->data->videos as $video ) {
             if ( $video->videoType == 'episode' ) {
 
-                preg_match("/(.+?S\d{2}) EP\d{2}/i", $video->originalTitle, $matches);
+                preg_match("/(.+?S\d{2}) ?EP?\d{2}/i", $video->originalTitle, $matches);
+
+                if (count($matches) != 2) {
+                    preg_match("/(.+?) Ep\d{2}/i", $video->originalTitle, $matches);
+                }
+
+                if (count($matches) != 2) {
+                    // new naming convention for episodes
+                    continue;
+                }
 
                 if (!isset($found[$matches[1]])) {
                     $found[$matches[1]] = true;
@@ -69,7 +78,16 @@ class Voddler extends Service {
         foreach ( $obj->data->videos as $video ) {
             if ( $video->videoType == 'episode' ) {
 
-                preg_match("/(.+?S\d{2}) EP?\d{2}/i", $video->originalTitle, $matches);
+                preg_match("/(.+?S\d{2}) ?EP?\d{2}/i", $video->originalTitle, $matches);
+
+                if (count($matches) != 2) {
+                    preg_match("/(.+?) Ep\d{2}/i", $video->originalTitle, $matches);
+                }
+
+                if (count($matches) != 2) {
+                    // new naming convention for episodes
+                    continue;
+                }
 
                 if (!isset($found[$matches[1]])) {
                     $found[$matches[1]] = true;
