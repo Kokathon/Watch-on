@@ -8,7 +8,8 @@
             populating = false,
             internalServices = {},
             servicesRequested = 0,
-            $body = $( 'body' );
+            $body = $( 'body' ),
+            searchCount = 1;
 
         //Search using search.php
         $.ajax( {
@@ -118,9 +119,11 @@
                 return;
             }
 
+            searchCount++;
             clearTimeout( searchTimeout );
 
             searchTimeout = setTimeout( function () {
+                var requestedOn = searchCount;
 
                 $progressbar.addClass('no-transition');
                 $progressbar.find( '.bar' ).css({
@@ -138,8 +141,10 @@
                 $.each(services, function (service) {
 
                     var callback = function (data) {
-                        $progressbar.removeClass('no-transition');
-                        populateArray(data, service);
+                        if (requestedOn == searchCount) {
+                            $progressbar.removeClass('no-transition');
+                            populateArray(data, service);
+                        }
                     };
 
                     var s = new window[service]();
