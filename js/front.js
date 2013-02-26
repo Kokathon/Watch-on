@@ -173,10 +173,17 @@
 
         $body.on( 'click', '.dropdown-menu a', function( event ){
             var $dropdownWrapper = $body.find( '.dropdown-menu' ),
-                $this = $( this );
+                $this = $( this ),
+                $oldSearchType = $dropdownWrapper.find( '.js-current-searchtype' );
 
-            $dropdownWrapper.find( '.js-current-searchtype' ).removeClass( 'js-current-searchtype' );
-            $this.addClass( 'js-current-searchtype' ).append( $dropdownWrapper.find( '.js-icon-selected' ) );
+            event.preventDefault();
+
+            if( !$oldSearchType.is( $this ) ){
+                $dropdownWrapper.find( '.js-current-searchtype' ).removeClass( 'js-current-searchtype' );
+                $this.addClass( 'js-current-searchtype' ).append( $dropdownWrapper.find( '.js-icon-selected' ) );
+
+                doSearch();
+            }
         });
 
         function capitaliseFirstLetter( string ) {
