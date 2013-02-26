@@ -1,6 +1,7 @@
 html,
 body {
     background: #eee;
+    padding: 0;
     height: 100%;
 }
 
@@ -25,6 +26,11 @@ h1 {
     margin: 0 auto -60px;
 }
 
+.search-form {
+    height: 102px;
+    position: relative;
+}
+
 .search-form input {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -35,6 +41,38 @@ h1 {
     text-align: center;
     text-transform: uppercase;
     width: 100%;
+}
+
+.search-form .btn-group,
+.search-form button {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100px;
+}
+
+.search-form div,
+.search-form button {
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.search-form .btn-group {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+
+.search-form i {
+    float: right;
+}
+
+.search-form .dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
 .progress {

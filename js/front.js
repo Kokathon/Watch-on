@@ -7,7 +7,8 @@
             spanBase = 12,
             populating = false,
             internalServices = {},
-            servicesRequested = 0;
+            servicesRequested = 0,
+            $body = $( 'body' );
 
         //Search using search.php
         $.ajax( {
@@ -108,9 +109,10 @@
             }
         }
 
-        function doSearch(type) {
+        function doSearch() {
             var term = encodeURI( $.trim( $( ".js-search-input" ).val() ) ),
-                $progressbar = $( '.js-progress' );
+                $progressbar = $( '.js-progress' ),
+                type = $( '.js-current-searchtype' ).data( 'searchtype' );
 
             if( term.length <= 1 ){
                 return;
@@ -138,7 +140,7 @@
                     var callback = function (data) {
                         $progressbar.removeClass('no-transition');
                         populateArray(data, service);
-                    }
+                    };
 
                     var s = new window[service]();
 
@@ -160,13 +162,21 @@
         }
 
         if ('oninput' in document.documentElement) {
-            $( "body" ).on( 'input', 'input', doSearch);
+            $body.on( 'input', 'input', doSearch);
         } else {
-            $( "body" ).on( 'keyup', 'input', doSearch);
+            $body.on( 'keyup', 'input', doSearch);
         }
 
-        $( 'body' ).on( 'submit', 'form', function( event ){
+        $body.on( 'submit', 'form', function( event ){
             event.preventDefault();
+        });
+
+        $body.on( 'click', '.dropdown-menu a', function( event ){
+            var $dropdownWrapper = $body.find( '.dropdown-menu' ),
+                $this = $( this );
+
+            $dropdownWrapper.find( '.js-current-searchtype' ).removeClass( 'js-current-searchtype' );
+            $this.addClass( 'js-current-searchtype' ).append( $dropdownWrapper.find( '.js-icon-selected' ) );
         });
 
         function capitaliseFirstLetter( string ) {

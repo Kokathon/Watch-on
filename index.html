@@ -21,6 +21,29 @@
         <h1>Watch on!</h1>
         <form class="form-inline search-form js-search-form">
             <input type="text" class="js-search-input" placeholder="Movie or tv-show title..." autofocus>
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#" data-searchtype="all" class="js-current-searchtype">
+                            Movie & TV
+                        <i class="icon-ok js-icon-selected"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-searchtype="movie">
+                            Movie
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-searchtype="tv">
+                            TV
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </form>
         <div class="progress progress-info progress-striped js-progress">
             <div class="bar" style="width: 0"></div>
