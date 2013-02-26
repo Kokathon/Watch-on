@@ -51,18 +51,7 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $findResults = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
-
-            $results = array();
-
-            foreach( $findResults as $result ) :
-                $results[] = array(
-                    'title' => $result[ 'title' ],
-                    'service' => $result[ 'service' ],
-                    'type' => $type,
-                    'url' => $result[ 'url' ]
-                );
-            endforeach;
+            $results = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
 
             return $results;
         }
@@ -125,18 +114,7 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $findResults = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
-
-            $results = array();
-
-            foreach( $findResults as $result ) :
-                $results[] = array(
-                    'title' => $result[ 'title' ],
-                    'service' => $result[ 'service' ],
-                    'type' => 'movie',
-                    'url' => $result[ 'url' ]
-                );
-            endforeach;
+            $results = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
 
             return $results;
         }
@@ -152,18 +130,7 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $findResults = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
-
-            $results = array();
-
-            foreach( $findResults as $result ) :
-                $results[] = array(
-                    'title' => $result[ 'title' ],
-                    'service' => $result[ 'service' ],
-                    'type' => 'tv',
-                    'url' => $result[ 'url' ]
-                );
-            endforeach;
+            $results = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
 
             return $results;
         }

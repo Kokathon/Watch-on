@@ -58,18 +58,7 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $findResults = $collection->find( array( 'title' => $condition ) );
-
-            $results = array();
-
-            foreach ( $findResults as $result ) :
-                $results[ ] = array(
-                    'title' => $result[ 'title' ],
-                    'service' => $result[ 'service' ],
-                    'type' => $result[ 'type' ],
-                    'url' => $result[ 'url' ]
-                );
-            endforeach;
+            $results = $collection->find( array( 'title' => $condition ) );
 
             return $results;
         }
@@ -129,18 +118,7 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $findResults = $collection->find( array( 'title' => $condition ) );
-
-            $results = array();
-
-            foreach ( $findResults as $result ) :
-                $results[ ] = array(
-                    'title' => $result[ 'title' ],
-                    'service' => $result[ 'service' ],
-                    'type' => $result[ 'type' ],
-                    'url' => $result[ 'url' ]
-                );
-            endforeach;
+            $results = $collection->find( array( 'title' => $condition ) );
 
             return $results;
         }
@@ -156,18 +134,7 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $findResults = $collection->find( array( 'title' => $condition ) );
-
-            $results = array();
-
-            foreach ( $findResults as $result ) :
-                $results[ ] = array(
-                    'title' => $result[ 'title' ],
-                    'service' => $result[ 'service' ],
-                    'type' => $result[ 'type' ],
-                    'url' => $result[ 'url' ]
-                );
-            endforeach;
+            $results = $collection->find( array( 'title' => $condition ) );
 
             return $results;
         }
