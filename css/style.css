@@ -10,7 +10,7 @@ input {
     font-family: 'Lato', sans-serif;
 }
 
-h1 {
+.hero-unit h1 {
     font-weight: normal;
     margin-bottom: 5px;
 }
