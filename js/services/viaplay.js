@@ -1,6 +1,6 @@
 
 function viaplay () {
-	this._BASE_URL		= 'http://kokarn.com/kokathon/repos/Watch-on/search.php';
+	this._BASE_URL		= 'http://varkanjag.se/search.php';
 	this._SERVICE_NAME 	= 'viaplay';
 }
 

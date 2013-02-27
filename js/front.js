@@ -13,7 +13,7 @@
 
         //Search using search.php
         $.ajax( {
-            url : "http://kokarn.com/kokathon/repos/Watch-on/services.php",
+            url : "http://varkanjag.se/services.php",
             dataType : "jsonp",
             success : function ( data ) {
                 for ( var i = 0; i < data.length; i++ ) {
