@@ -120,7 +120,13 @@
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
             $results = $collection->find( array( 'title' => $condition ) );
 
-            return $results;
+            $movies = array();
+
+            foreach( $results as $result ) :
+                $movies[] = $result;
+            endforeach;
+
+            return $movies;
         }
 
         public function findTv($term) {
@@ -136,7 +142,13 @@
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
             $results = $collection->find( array( 'title' => $condition ) );
 
-            return $results;
+            $tv = array();
+
+            foreach( $results as $show ) :
+                $tv[] = $show;
+            endforeach;
+
+            return $tv;
         }
 
     }

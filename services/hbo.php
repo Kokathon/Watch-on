@@ -51,7 +51,13 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $results = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+            $resultsCursor = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+
+            $results = array();
+
+            foreach( $resultsCursor as $result ) :
+                $results[] = $result;
+            endforeach;
 
             return $results;
         }
@@ -114,7 +120,13 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $results = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+            $resultsCursor = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+
+            $results = array();
+
+            foreach( $resultsCursor as $result ) :
+                $results[] = $result;
+            endforeach;
 
             return $results;
         }
@@ -130,7 +142,13 @@
             $collection = $db->$collectionName;
 
             $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $results = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+            $resultsCursor = $collection->find( array( 'title' => $condition, 'service' => 'hbo' ) );
+
+            $results = array();
+
+            foreach( $resultsCursor as $result ) :
+                $results[] = $result;
+            endforeach;
 
             return $results;
         }
