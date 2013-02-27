@@ -17,7 +17,7 @@
             elseif ( is_array( $tv ) ) :
                 return $tv;
             else :
-                return false;
+                return array();
             endif;
         }
     }
