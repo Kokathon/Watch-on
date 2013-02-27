@@ -99,6 +99,17 @@
                 html += "</table></div>";
 
                 $( ".js-results" ).append( html );
+
+
+                /* Tooltip for netflix **/
+                if (serviceName == 'netflix') {
+                    console.log('hejsan');
+                    $('.service-netflix').tooltip({
+                       title: 'Vissa utav resultaten kanske inte är tillgängliga i Sverige'
+                    });
+                }
+                /************************/
+
                 populating = false;
             } else {
                 var myObjects = objects,
