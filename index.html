@@ -18,23 +18,22 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div id="fb-root"></div>
     <div class="hero-unit">
         <h1>Var kan jag se...</h1>        
         <form class="form-inline search-form js-search-form">
             <input type="text" class="js-search-input" placeholder="Film eller tv-serie..." autofocus>
-            <!--
             <div class="btn-group btn-group-vertical sharebar">
-                <a class="btn" href="#">
+                <a class="btn share-on-facebook" href="http://varkanjag.se">
                     <i class="icon-facebook"></i>
                 </a>
-                <a class="btn" href="#">
+                <a class="btn" href="https://twitter.com/intent/tweet?text=Bästa%20tjänsten%20sen%20Hedenhös!&url=http%3A%2F%2Fvarkanjag.se">
                     <i class="icon-twitter"></i>
                 </a>
-                <a class="btn" href="#">
+                <a class="btn share-on-google share-popup" href="https://plus.google.com/share?url=http%3A%2F%2Fvarkanjag.se">
                     <i class="icon-google-plus"></i>
                 </a>
             </div>
-            -->
             <div class="btn-group searchtype-wrapper">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
@@ -74,6 +73,7 @@
         </div>
     </div>
     <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="//platform.twitter.com/widgets.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/services/netflix.js"></script>
     <script src="js/services/hbo.js"></script>
@@ -83,6 +83,23 @@
     <script src="js/services/lovefilm.js"></script>
     <script src="js/services/svtplay.js"></script>
     <script src="js/front.js"></script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: "171103533037325",
+                status: true,
+                cookie: true
+            });
+        };
+
+        (function(d, debug){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document, /*debug*/ false));
+    </script>
     <script>
 
         var _gaq = _gaq || [];
