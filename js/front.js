@@ -194,10 +194,5 @@
             return string.charAt( 0 ).toUpperCase() + string.slice( 1 );
         }
 
-        function log( message ) {
-            $( "<div>" ).text( message ).prependTo( "#log" );
-            $( "#log" ).scrollTop( 0 );
-        }
-
     } );
 }( jQuery ));
