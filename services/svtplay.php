@@ -45,14 +45,14 @@ class svtplay extends Service implements Indexable {
     	$db = $m->watchon;
     	$collection = $db->svtplaytv;
 
-    	$condition = new MongoRegex('/.*' . $tem . '.*/i');
+    	$condition = new MongoRegex('/.*' . $term . '.*/i');
     	$result = $collection->find(array(
     		'title' => $condition
     		));
 
     	$tv = array();
 
-    	foreach ($results as $show) {
+    	foreach ($result as $show) {
     		$tv[] = $show;
     	}
 
