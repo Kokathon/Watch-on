@@ -1,31 +1,24 @@
 <?php
-    include( 'services/viaplay.php' );
-    $viaplay = new Viaplay();
-    $viaplay->index();
 
-    include( 'services/hbo.php' );
-    $hbo = new Hbo();
-    $hbo->index();
+if (isset($_GET['service'])) {
+    $serviceName = $_GET['service'];
 
-    /*
-    $viaplay->findAllMovies();
-    $movies = $viaplay->getMovies();
-    // connect
-    $m = new MongoClient();
+    require_once('services/lovefilm.php');
+    require_once('services/hbo.php');
+    require_once('services/viaplay.php');
+    require_once('services/voddler.php');
+    require_once('services/headweb.php');
+    require_once('services/svtplay.php');
 
-    // select a database
-    $db = $m->watchon;
+    $service = new $serviceName();
 
-    // select a collection (analogous to a relational database's table)
-    $collection = $db->movies;
-    // add a record
-    foreach ( $movies as $movie ) :
-        $document = array(
-            "title" => $movie,
-            "service" => "viaplay"
-        );
-        if ( !$collection->findOne( $document ) ) :
-            $collection->insert( $document );
-        endif;
-    endforeach;
-    */
+    if ($service instanceof Indexable) {
+
+        echo "creating index for " . $serviceName;
+
+        $service->createIndex();
+    }
+
+}
+
+?>
