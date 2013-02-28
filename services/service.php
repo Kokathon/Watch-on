@@ -2,9 +2,13 @@
 
     abstract class Service {
 
-        abstract public function findMovies( $term );
+        public function findMovies( $term ) {
+            return array();
+        }
 
-        abstract public function findTv( $term );
+        public function findTv( $term ) {
+            return array();
+        }
 
         public function findAll( $term ) {
             $movies = $this->findMovies( $term );
