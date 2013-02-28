@@ -1,0 +1,168 @@
+html,
+body {
+    background: #eee;
+    padding: 0;
+    height: 100%;
+}
+
+body,
+input {
+    font-family: 'Lato', sans-serif;
+}
+
+.hero-unit {
+    background: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+/* Negative indent footer by it's height */
+    margin: 0 auto -60px;
+
+    h1 {
+        font-weight: normal;
+        margin-bottom: 15px;
+    }
+}
+
+
+.search-form {
+    height: 102px;
+    position: relative;
+
+    input {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        font-size: 80px;
+        line-height: 102px;
+        height: 102px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+    }
+}
+
+.sharebar {
+    height: 102px;
+    left: 1px;
+    position: absolute;
+    top: 1px;
+
+    a {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 34px;
+    }
+}
+
+.searchtype-wrapper {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+
+    button {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 100px;
+    }
+
+    div,
+    button {
+        border-top: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+
+    i {
+        float: right;
+    }
+
+    .dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+}
+
+.progress {
+    display: none;
+
+    &.no-transition .bar {
+
+        -webkit-transition: width 0 ease;
+        -moz-transition: width 0 ease;
+        -o-transition: width 0 ease;
+        transition: width 0 ease;
+    }
+}
+
+.service-netflix .service-logo {
+    background-image: url('../img/netflix-logo.png');
+}
+
+.service-headweb .service-logo {
+    background-image: url('../img/headweb-logo.png');
+}
+
+.service-hbo .service-logo {
+    background-image: url('../img/hbo-logo.png');
+}
+
+.service-voddler .service-logo {
+    background-image: url('../img/voddler-logo.gif');
+}
+
+.service-viaplay .service-logo {
+    background-image: url('../img/viaplay-logo.png');
+}
+
+.service-lovefilm .service-logo {
+    background-image: url('../img/lovefilm-logo.gif');
+}
+
+.service-logo {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100px;
+    height: 50px;
+}
+
+.type-icon {
+    font-size: 14px;
+}
+
+#footer {
+    background-color: #E0E0E0;
+    height: 60px;
+
+    .container {
+        display: table;
+        height: 100%;
+
+        p {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+}
+
+@media (max-width: 767px ){
+    .hero-unit {
+        padding: 15px 15px 60px 15px;
+    }
+}
+
+#social {
+    height: 30px;
+
+    a {
+        float:right;
+    }
+}
