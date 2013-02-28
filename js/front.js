@@ -104,7 +104,7 @@
                 /* Tooltip for netflix **/
                 if (serviceName == 'netflix') {
                     $('.service-netflix').tooltip({
-                       title: 'Vissa utav resultaten kanske inte är tillgängliga i Sverige'
+                       title: 'Vissa av resultaten är kanske inte tillgängliga i Sverige'
                     });
                 }
                 /************************/
