@@ -78,9 +78,9 @@
                 $.each( objects, function ( index, element ) {
                     if ( element !== null ) {
                         if( element.type === 'movie' ){
-                            icon = '<i class="icon-film pull-right"></i>';
+                            icon = '<i class="icon-film pull-right type-icon"></i>';
                         }else if( element.type === 'tv' ){
-                            icon = '<i class="icon-picture pull-right"></i>';
+                            icon = '<i class="icon-picture pull-right type-icon"></i>';
                         }
 
                         if( element.url ) {

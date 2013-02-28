@@ -119,6 +119,10 @@ input {
     height: 50px;
 }
 
+.type-icon {
+    font-size: 14px;
+}
+
 #footer {
     height: 60px;
 }
@@ -142,4 +146,12 @@ input {
     .hero-unit {
         padding: 15px 15px 60px 15px;
     }
+}
+
+#social {
+    height: 30px;
+}
+
+#social a {
+    float:right;
 }
