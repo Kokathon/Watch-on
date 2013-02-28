@@ -44,6 +44,7 @@
     require_once('services/viaplay.php');
     require_once('services/voddler.php');
     require_once('services/headweb.php');
+    require_once('services/svtplay.php');
 
 
     $service = new $service();
