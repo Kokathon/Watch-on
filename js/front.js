@@ -220,7 +220,7 @@
                 method: 'feed',
                 redirect_uri: 'http://varkanjag.se/facebook.html',
                 link: url,
-                picture: 'http://fbrell.com/f8.jpg',
+                //picture: 'http://fbrell.com/f8.jpg',
                 name: 'Var kan jag se...',
                 caption: 'Hitta filmen!... eller tv-serien',
                 description: 'Hitta vilken tjänst som erbjuder det just du vill se.'
