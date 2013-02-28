@@ -4,9 +4,7 @@
         var searchTimeout,
             currentSpan = 0,
             services = {},
-            spanBase = 12,
             populating = false,
-            internalServices = {},
             servicesRequested = 0,
             $body = $( 'body' ),
             searchCount = 1;
@@ -58,20 +56,8 @@
             if ( !populating ) {
                 populating = true;
                 currentSpan += 1;
-                var newSpan,
-                    prevSpan = 12;
-
-                if ( currentSpan > 0 ) {
-                    newSpan = Math.floor( spanBase / currentSpan );
-                    if ( currentSpan > 1 ) {
-                        prevSpan = Math.floor( spanBase / ( currentSpan - 1 ) );
-                    }
-                    $( 'div:hasClassStartingWith("span")' ).removeClass( 'span' + prevSpan ).addClass( 'span' + newSpan );
-                } else {
-                    newSpan = spanBase;
-                }
-
-                var html = "<div class='span" + newSpan + " service-" + serviceName + "'><div class='service-logo'><!-- --></div><table class='table table-condensed table-hover table-striped'>",
+                var newWidth = 100 / currentSpan,
+                    html = "<div class='result-wrapper service-" + serviceName + "'><div class='service-logo'><!-- --></div><table class='table table-condensed table-hover table-striped'>",
                     icon = '',
                     elementText = '';
 
@@ -100,6 +86,9 @@
 
                 $( ".js-results" ).append( html );
 
+                $( '.result-wrapper' ).css({
+                    width: newWidth + '%'
+                });
 
                 /* Tooltip for netflix **/
                 if (serviceName == 'netflix') {
@@ -209,11 +198,6 @@
             $( "<div>" ).text( message ).prependTo( "#log" );
             $( "#log" ).scrollTop( 0 );
         }
-
-        $.expr[':'].hasClassStartingWith = function ( el, i, selector ) {
-            var re = new RegExp( "\\b" + selector[3] );
-            return re.test( el.className );
-        };
 
     } );
 }( jQuery ));

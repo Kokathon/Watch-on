@@ -1,3 +1,9 @@
+.box-sizing {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 html,
 body {
     background: #eee;
@@ -12,9 +18,7 @@ input {
 
 .hero-unit {
     background: none;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    .box-sizing;
     min-height: 100%;
     height: auto !important;
     height: 100%;
@@ -33,9 +37,7 @@ input {
     position: relative;
 
     input {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+        .box-sizing;
         font-size: 80px;
         line-height: 102px;
         height: 102px;
@@ -52,9 +54,7 @@ input {
     top: 1px;
 
     a {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+        .box-sizing;
         height: 34px;
     }
 }
@@ -65,9 +65,7 @@ input {
     top: 1px;
 
     button {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+        .box-sizing;
         height: 100px;
     }
 
@@ -99,6 +97,18 @@ input {
         -moz-transition: width 0 ease;
         -o-transition: width 0 ease;
         transition: width 0 ease;
+    }
+}
+
+.result-wrapper {
+    .box-sizing;
+    float: left;
+    min-width: 175px;
+    padding-left: 20px;
+    word-wrap: break-word;
+
+    &:first-child {
+        padding-left: 0;
     }
 }
 
