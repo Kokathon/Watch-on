@@ -190,9 +190,47 @@
             }
         });
 
+        $body.on( 'click', '.share-popup', function( event ){
+            event.preventDefault();
+            var url = $( this ).attr( 'href' );
+            sharePopup( url );
+        });
+
         function capitaliseFirstLetter( string ) {
             return string.charAt( 0 ).toUpperCase() + string.slice( 1 );
         }
+
+        function sharePopup( url ) {
+            var height = 400,
+                width = 600,
+                left = ( screen.width / 2 )-( width / 2 ),
+                top = ( screen.height / 2 )-( height / 2 ),
+                windowFeatures = "status=no,height=" + height + ",width=" + width + ",resizable=yes,toolbar=no,menubar=no,scrollbars=no,location=no,directories=no,left=" + left + ",top=" + top;
+
+            window.open( url, 'sharer', windowFeatures );
+        }
+
+        $body.on( 'click', '.share-on-facebook', function( event ){
+            event.preventDefault();
+            postToFeed( $( this ).attr( 'href' ) );
+        } );
+
+        function postToFeed( url ) {
+            var obj = {
+                method: 'feed',
+                redirect_uri: 'http://varkanjag.se/facebook.html',
+                link: url,
+                picture: 'http://fbrell.com/f8.jpg',
+                name: 'Var kan jag se...',
+                caption: 'Hitta filmen!... eller tv-serien',
+                description: 'Hitta vilken tjänst som erbjuder det just du vill se.'
+            };
+
+            FB.ui(obj, function( response ){
+
+            });
+        }
+
 
     } );
 }( jQuery ));
