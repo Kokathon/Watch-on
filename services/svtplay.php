@@ -30,7 +30,7 @@ class svtplay extends Service implements Indexable {
 				'type' => 'tv'
 				);
 
-			$collection->insert($document);
+			$collection->insert($tv);
 		}
 
 	}
