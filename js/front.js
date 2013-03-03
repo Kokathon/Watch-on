@@ -86,7 +86,7 @@
 
                 $( ".js-results" ).append( html );
 
-                if( window.matchMedia("(min-width: 768px)").matches ) {
+                if( !window.matchMedia || window.matchMedia("(min-width: 768px)").matches ) {
                     $( '.result-wrapper' ).css({
                         width: newWidth + '%'
                     });
