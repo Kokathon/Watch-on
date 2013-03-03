@@ -86,9 +86,11 @@
 
                 $( ".js-results" ).append( html );
 
-                $( '.result-wrapper' ).css({
-                    width: newWidth + '%'
-                });
+                if( window.matchMedia("(min-width: 768px)").matches ) {
+                    $( '.result-wrapper' ).css({
+                        width: newWidth + '%'
+                    });
+                }
 
                 /* Tooltip for netflix **/
                 if (serviceName === 'netflix') {
