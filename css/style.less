@@ -211,3 +211,41 @@ input {
     }
 }
 
+@media (max-width: 420px ){
+    @input-height: 54px;
+
+    .hero-unit {
+        padding-top: 5px;
+        h1 {
+            font-size: 34px;
+            margin-top: 5px;
+        }
+
+        input {
+            font-size: 18px;
+            line-height: @input-height;
+            height: @input-height;
+        }
+
+        .sharebar {
+            height: @input-height;
+
+            a {
+                font-size: 8px;
+                height: @input-height / 3;
+                padding-top: 0;
+            }
+        }
+
+        .searchtype-wrapper {
+            button {
+                height: @input-height - 2px;
+            }
+        }
+    }
+
+    #footer {
+        font-size: 10px;
+    }
+}
+
