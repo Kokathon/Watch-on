@@ -91,7 +91,7 @@
                 });
 
                 /* Tooltip for netflix **/
-                if (serviceName == 'netflix') {
+                if (serviceName === 'netflix') {
                     $('.service-netflix').tooltip({
                        title: 'Vissa av resultaten är kanske inte tillgängliga i Sverige'
                     });
@@ -140,7 +140,7 @@
                 $.each(services, function (service) {
 
                     var callback = function (data) {
-                        if (requestedOn == searchCount) {
+                        if (requestedOn === searchCount) {
                             $progressbar.removeClass('no-transition');
                             populateArray(data, service);
                         }
