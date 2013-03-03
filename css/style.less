@@ -1,3 +1,5 @@
+@input-height: 102px;
+
 .box-sizing {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -33,14 +35,13 @@ input {
 
 
 .search-form {
-    height: 102px;
     position: relative;
 
     input {
         .box-sizing;
         font-size: 80px;
-        line-height: 102px;
-        height: 102px;
+        line-height: @input-height;
+        height: @input-height;
         text-align: center;
         text-transform: uppercase;
         width: 100%;
@@ -48,7 +49,7 @@ input {
 }
 
 .sharebar {
-    height: 102px;
+    height: @input-height;
     left: 1px;
     position: absolute;
     top: 1px;
@@ -56,6 +57,15 @@ input {
     a {
         .box-sizing;
         height: 34px;
+        padding-top: 7px;
+
+        &:first-child {
+            border-top: 0;
+        }
+
+        &:last-child {
+            border-bottom: 0;
+        }
     }
 }
 
@@ -168,15 +178,30 @@ input {
 }
 
 @media (max-width: 767px ){
+    @input-height: 74px;
     .hero-unit {
         padding: 15px 15px 60px 15px;
+
+        input {
+            font-size: 30px;
+            line-height: @input-height;
+            height: @input-height;
+        }
+
+        .sharebar {
+            height: @input-height;
+
+            a {
+                height: @input-height / 3;
+                padding-top: 3px;
+            }
+        }
+
+        .searchtype-wrapper {
+            button {
+                height: @input-height - 2px;
+            }
+        }
     }
 }
 
-#social {
-    height: 30px;
-
-    a {
-        float:right;
-    }
-}
