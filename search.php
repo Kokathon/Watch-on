@@ -1,4 +1,6 @@
 <?php
+require_once('services/require_services.php');
+
     $term = '';
     $callback = '';
     $find = '';
@@ -38,8 +40,6 @@
             $findFunction = 'findAll';
             break;
     }
-
-    require_once('services/require_services.php');
 
     $service = new $service();
     $results = $service->$findFunction($term);
