@@ -3,13 +3,7 @@
 if (isset($_GET['service'])) {
     $serviceName = $_GET['service'];
 
-    require_once('services/lovefilm.php');
-    require_once('services/hbo.php');
-    require_once('services/viaplay.php');
-    require_once('services/voddler.php');
-    require_once('services/headweb.php');
-    require_once('services/svtplay.php');
-    require_once('services/tv4play.php');
+    require_once('services/require_services.php');
 
     $service = new $serviceName();
 
