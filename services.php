@@ -12,8 +12,7 @@ foreach( $serviceFiles as $service ):
         continue;
     endif;
 
-    $fileParts = explode('.', $service);
-    if (end($fileParts) == "js") {
+    if (pathinfo($service, PATHINFO_EXTENSION) === 'js') {
         $services[] = substr( $service, 0, strlen( $service ) - 3);
     }
     

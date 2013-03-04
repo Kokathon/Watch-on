@@ -7,8 +7,7 @@ foreach( $serviceFiles as $service ) {
         continue;
     }
 
-    $fileParts = explode('.', $service);
-    if (end($fileParts) == "js") {
+    if (pathinfo($service, PATHINFO_EXTENSION) === 'js') {
     	echo file_get_contents($service);
     }
 }
