@@ -9,6 +9,7 @@ if (isset($_GET['service'])) {
     require_once('services/voddler.php');
     require_once('services/headweb.php');
     require_once('services/svtplay.php');
+    require_once('services/tv4play.php');
 
     $service = new $serviceName();
 
