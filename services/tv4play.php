@@ -14,7 +14,7 @@ class tv4play extends Service implements Indexable {
 		preg_match_all('/<li><a href=\"(\/.+?)\">(.+?)<\/a><\/li>/s', $aolist[1], $matches);
 
 		$num = count($matches[0]);
-		return;
+
 		// connect to the db
 		$m = new MongoClient();
 		$db = $m->watchon;
