@@ -27,7 +27,7 @@ class tv4play extends Service implements Indexable {
 		for($i = 0; $i < $num; ++$i) {
 			$tv = array(
 				'title' => $matches[2][$i],
-				'url' => 'http://www.tv4play.se/' . $matches[1][$i],
+				'url' => 'http://www.tv4play.se' . $matches[1][$i],
 				'type' => 'tv'
 				);
 
