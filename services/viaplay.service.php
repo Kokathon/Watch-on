@@ -2,14 +2,14 @@
 
     require_once ( 'service.php' );
 
-    class Viaplay extends Service {
+    class Viaplay extends Service implements Indexable{
         private $tvUrl = 'http://viaplay.se/tv/alphabetical';
         private $movieUrl = 'http://viaplay.se/film/samtliga/250/alphabetical';
         private static $movieBaseUrl = 'http://viaplay.se';
         private $movies = array();
         private $shows = array();
 
-        public function findAllMovies() {
+        public function indexMovies() {
             $data = file_get_contents( $this->movieUrl );
             preg_match_all( '/<ul>(.+?)<\/ul>/s', $data, $matches );
             $filterList = array_slice( $matches[ 0 ], 2, count( $matches ) - 8 );
@@ -22,9 +22,28 @@
                     );
                 endforeach;
             endforeach;
+
+            // connect to the db
+            $m = new MongoClient();
+            $db = $m->watchon;
+            $collection = $db->viaplaymovie;
+
+            // empty the collection
+            $collection->remove();
+
+            // add each record
+            foreach( $this->movies as $movie ):
+                $tv = array(
+                    'title' => $movie[ 'title' ],
+                    'url' => $movie[ 'url' ],
+                    'type' => 'tv'
+                );
+
+                $collection->insert($tv);
+            endforeach;
         }
 
-        public function findAllTV() {
+        public function indexTv() {
             $data = file_get_contents( $this->tvUrl );
             preg_match_all( '/<ul>(.+?)<\/ul>/s', $data, $matches );
             $filterList = array_slice( $matches[ 0 ], 1, count( $matches ) - 8 );
@@ -37,74 +56,30 @@
                     );
                 endforeach;
             endforeach;
-        }
 
-        public function getMovies() {
-            return $this->movies;
-        }
-
-        public function getShows() {
-            return $this->shows;
-        }
-
-        public function search( $term, $type = 'movie' ) {
+            // connect to the db
             $m = new MongoClient();
-
-            // select a database
             $db = $m->watchon;
-
-            // select a collection (analogous to a relational database's table)
-            $collectionName = 'viaplay' . $type;
-            $collection = $db->$collectionName;
-
-            $condition = new MongoRegex( '/.*' . $term . '.*/i' );
-            $results = $collection->find( array( 'title' => $condition ) );
-
-            return $results;
-        }
-
-        public function index() {
-            $this->findAllMovies();
-            // connect
-            $m = new MongoClient();
-
-            // select a database
-            $db = $m->watchon;
-
-            // select a collection (analogous to a relational database's table)
-            $collection = $db->viaplaymovie;
-
-            // Empty collection
-            $collection->remove();
-
-            // add a record
-            foreach ( $this->movies as $movie ) :
-                $document = array(
-                    'title' => $movie[ 'title' ],
-                    'service' => 'viaplay',
-                    'type' => 'movie',
-                    'url' => $movie[ 'url' ]
-                );
-                $collection->insert( $document );
-            endforeach;
-
-            $this->findAllTV();
-
             $collection = $db->viaplaytv;
 
-            // Empty collection
+            // empty the collection
             $collection->remove();
 
-            // add a record
-            foreach ( $this->shows as $show ) :
-                $document = array(
+            // add each record
+            foreach( $this->shows as $show ):
+                $tv = array(
                     'title' => $show[ 'title' ],
-                    'service' => "viaplay",
-                    'type' => 'tv',
-                    'url' => $show[ 'url' ]
+                    'url' => $show[ 'url' ],
+                    'type' => 'tv'
                 );
-                $collection->insert( $document );
+
+                $collection->insert($tv);
             endforeach;
+        }
+
+        public function createIndex(){
+            $this->indexMovies();
+            $this->indexTv();
         }
 
         public function findMovies($term) {

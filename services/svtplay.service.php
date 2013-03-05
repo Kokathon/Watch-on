@@ -35,7 +35,6 @@ class svtplay extends Service implements Indexable {
 
 	}
 
-
 	public function createIndex() {
 		$this->indexTv();
 	}
