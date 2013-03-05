@@ -1,6 +1,7 @@
 <?php
 
     require_once ( 'service.php' );
+    require_once ( 'indexable.php' );
 
     class Viaplay extends Service implements Indexable{
         private $tvUrl = 'http://viaplay.se/tv/alphabetical';

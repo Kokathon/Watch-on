@@ -1,5 +1,6 @@
 <?php
     require_once ( 'service.php' );
+    require_once ( 'indexable.php' );
 
     class Hbo extends Service implements Indexable {
         private $tvUrl = 'http://hbonordic.com/rest-services-hook/series';
