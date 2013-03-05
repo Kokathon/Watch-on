@@ -57,7 +57,7 @@
                 populating = true;
                 currentSpan += 1;
                 var newWidth = 100 / currentSpan,
-                    html = "<div class='result-wrapper service-" + serviceName + "'><div class='service-logo'><!-- --></div><table class='table table-condensed table-hover table-striped'>",
+                    html = "<div class='result-wrapper service-" + serviceName + "'><div class='service-logo'><img src='img/" + serviceName + "-logo.png'></div><table class='table table-condensed table-hover table-striped'>",
                     icon = '',
                     elementText = '';
 
