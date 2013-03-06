@@ -41,10 +41,18 @@ require_once('services/require_services.php');
             break;
     }
 
-    $service = new $service();
-    $results = $service->$findFunction($term);
+    $apcKey = $service . '_' . $term;
+
+    if( !apc_exists( $apcKey ) ) :
+        $service = new $service();
+        $results = $service->$findFunction($term);
+        $jsonResults = json_encode( $results );
+        apc_store( $apcKey, $jsonResults, 60 );
+    else :
+        $jsonResults = apc_fetch( $apcKey );
+    endif;
 
     header( 'Content-type: application/json' );
     echo $callback . "(";
-    echo json_encode( $results );
+    echo $jsonResults;
     echo ");";
