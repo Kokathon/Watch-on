@@ -47,7 +47,7 @@ require_once('services/require_services.php');
         $service = new $service();
         $results = $service->$findFunction($term);
         $jsonResults = json_encode( $results );
-        apc_store( $apcKey, $jsonResults, 60 );
+        apc_store( $apcKey, $jsonResults, 3600 );
     else :
         $jsonResults = apc_fetch( $apcKey );
     endif;
