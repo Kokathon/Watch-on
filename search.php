@@ -41,7 +41,7 @@ require_once('services/require_services.php');
             break;
     }
 
-    $apcKey = $service . '_' . $term;
+    $apcKey = $service . '_' . $find . '_' . $term;
 
     if( !apc_exists( $apcKey ) ) :
         $service = new $service();
