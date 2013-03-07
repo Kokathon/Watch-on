@@ -22,6 +22,13 @@
                         results : []
                     };
                 }
+
+                // Add netflix because it's.... "special"
+                services[ 'netflix' ] = {
+                    id : 'netflix',
+                    name : 'Netflix',
+                    results : []
+                };
             }
         } );
 
@@ -155,7 +162,12 @@
                             populateArray(data, service);
                         }
                     };
-                    var s = new Service( service );
+
+                    if ( service === 'netflix' ){
+                        var s = new window[ service ]();
+                    } else {
+                        var s = new Service( service );
+                    }
 
                     switch (type) {
                         case 'tv':
