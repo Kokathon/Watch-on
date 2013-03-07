@@ -7,7 +7,8 @@
             populating = false,
             servicesRequested = 0,
             $body = $( 'body' ),
-            searchCount = 1;
+            searchCount = 1,
+            scrollbarWidth = getScrollBarWidth();
 
         //Search using search.php
         $.ajax( {
@@ -57,7 +58,7 @@
                 populating = true;
                 currentSpan += 1;
                 var newWidth = 100 / currentSpan,
-                    html = "<div class='result-wrapper service-" + serviceName + "'><div class='service-logo'><img src='img/" + serviceName + "-logo.png'></div><table class='table table-condensed table-hover table-striped'>",
+                    html = "<div class='result-wrapper service-" + serviceName + "'><div class='service-logo'><img src='img/" + serviceName + "-logo.png'></div><div class='table-wrapper'><table class='table table-condensed table-hover table-striped'>",
                     icon = '',
                     elementText = '';
 
@@ -82,14 +83,23 @@
                     html += "<tr class='warning'><td>No results!</td></tr>";
                 }
 
-                html += "</table></div>";
+                html += "</div></table></div>";
 
                 $( ".js-results" ).append( html );
 
                 if( !window.matchMedia || window.matchMedia("(min-width: 768px)").matches ) {
-                    $( '.result-wrapper' ).css({
-                        width: newWidth + '%'
+                    var $resultWrapper = $( '.result-wrapper' ),
+                        $tableWrapper = $resultWrapper.find( '.table-wrapper' );
+
+
+                    $resultWrapper.css({
+                        width: newWidth + '%',
+                        paddingLeft: scrollbarWidth
                     });
+
+                    $tableWrapper.width( $resultWrapper.width() );
+
+                    $( $tableWrapper.get(0) ).width( $resultWrapper.width() + scrollbarWidth );
                 }
 
                 /* Tooltip for netflix **/
@@ -233,6 +243,31 @@
             });
         }
 
+        function getScrollBarWidth () {
+            var inner = document.createElement('p');
+            inner.style.width = "100%";
+            inner.style.height = "200px";
+
+            var outer = document.createElement('div');
+            outer.style.position = "absolute";
+            outer.style.top = "0px";
+            outer.style.left = "0px";
+            outer.style.visibility = "hidden";
+            outer.style.width = "200px";
+            outer.style.height = "150px";
+            outer.style.overflow = "hidden";
+            outer.appendChild (inner);
+
+            document.body.appendChild (outer);
+            var w1 = inner.offsetWidth;
+            outer.style.overflow = 'scroll';
+            var w2 = inner.offsetWidth;
+            if (w1 == w2) w2 = outer.clientWidth;
+
+            document.body.removeChild (outer);
+
+            return (w1 - w2);
+        }
 
     } );
 }( jQuery ));

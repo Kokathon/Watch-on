@@ -114,11 +114,19 @@ input {
     .box-sizing;
     float: left;
     min-width: 175px;
+    overflow: hidden;
+    margin-bottom: 20px;
     padding-left: 20px;
     word-wrap: break-word;
 
     &:first-child {
         padding-left: 0;
+    }
+
+    .table-wrapper {
+        max-height: 340px;
+        overflow-y: scroll;
+        width: 100%;
     }
 }
 
