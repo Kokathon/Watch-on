@@ -155,8 +155,7 @@
                             populateArray(data, service);
                         }
                     };
-
-                    var s = new window[service]();
+                    var s = new Service( service );
 
                     switch (type) {
                         case 'tv':
