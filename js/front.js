@@ -97,9 +97,7 @@
                         paddingLeft: scrollbarWidth
                     });
 
-                    $tableWrapper.width( $resultWrapper.width() );
-
-                    $( $tableWrapper.get(0) ).width( $resultWrapper.width() + scrollbarWidth );
+                    $tableWrapper.width( $resultWrapper.width() + scrollbarWidth );
                 }
 
                 /* Tooltip for netflix **/
