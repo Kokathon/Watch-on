@@ -5,7 +5,7 @@ Function.prototype.method = function (name, func) {
 
 function Service( name ){
     this.setServiceName( name );
-    this._BASE_URL = 'http://varkanjag.se/search.php';
+    this._BASE_URL = "search.php"
 }
 
 Service.method( 'setServiceName', function( value ){

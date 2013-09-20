@@ -12,7 +12,7 @@
 
         //Search using search.php
         $.ajax( {
-            url : "http://varkanjag.se/services.php",
+            url: "services.php",
             dataType : "jsonp",
             success : function ( data ) {
                 for ( var i = 0; i < data.length; i++ ) {
@@ -22,13 +22,6 @@
                         results : []
                     };
                 }
-
-                // Add netflix because it's.... "special"
-                services[ 'netflix' ] = {
-                    id : 'netflix',
-                    name : 'Netflix',
-                    results : []
-                };
             }
         } );
 
@@ -107,14 +100,6 @@
                     $tableWrapper.width( $resultWrapper.width() + scrollbarWidth );
                 }
 
-                /* Tooltip for netflix **/
-                if (serviceName === 'netflix') {
-                    $('.service-netflix').tooltip({
-                       title: 'Vissa av resultaten är kanske inte tillgängliga i Sverige'
-                    });
-                }
-                /************************/
-
                 populating = false;
             } else {
                 var myObjects = objects,
@@ -163,11 +148,7 @@
                         }
                     };
 
-                    if ( service === 'netflix' ){
-                        var s = new window[ service ]();
-                    } else {
-                        var s = new Service( service );
-                    }
+                    var s = new Service( service );
 
                     switch (type) {
                         case 'tv':
